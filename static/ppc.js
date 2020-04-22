@@ -1,37 +1,37 @@
-var display_lists = function(non_ppc, ppc){
+var display_lists = function(available_ingredients, added_ingredients){
     //empty old data
-    $("#non-ppc-members").empty()
-    $("#ppc-members").empty()
+    $("#available_ingredients").empty()
+    $("#added_ingredients").empty()
     //insert all new data
-    $.each(non_ppc, function(i, person){
-        var render_employee = $("<div>")
-        $(render_employee).addClass("draggable-employee")
-        $(render_employee).text(person)
-        $(render_employee).hover(function(){
+    $.each(available_ingredients, function(i, ingredient){
+        var available_ingredient = $("<div>")
+        $(available_ingredient).addClass("draggable-employee")
+        $(available_ingredient).text(ingredient)
+        $(available_ingredient).hover(function(){
             $(this).addClass("hover")
         }, function(){
             $(this).removeClass("hover")
         })
-        $("#non-ppc-members").append(render_employee)
+        $("#available_ingredients").append(available_ingredient)
     })
 
-    $.each(ppc, function(i, committee_member){
-        var render_committee_member = $("<div>")
-        $(render_committee_member).addClass("draggable-committee")
-        $(render_committee_member).text(committee_member)
-        $(render_committee_member).hover(function(){
+    $.each(added_ingredients, function(i, ingredient){
+        var added_ingredient = $("<div>")
+        $(added_ingredient).addClass("draggable-committee")
+        $(added_ingredient).text(ingredient)
+        $(added_ingredient).hover(function(){
             $(this).addClass("hover")
         }, function(){
             $(this).removeClass("hover")
         })
-        $("#ppc-members").append(render_committee_member)
+        $("#added_ingredients").append(added_ingredient)
     })
 
     $("#non-target").droppable({
         accept: ".draggable-committee",
         drop: function(event, ui){
             var name = ui.draggable.text()
-            move_to_non_ppc(name)
+            move_to_available_ingredients(name)
             $(ui.draggable).remove()
         }
     })
@@ -39,7 +39,7 @@ var display_lists = function(non_ppc, ppc){
         accept: ".draggable-employee",
         drop: function(event, ui){
             var name = ui.draggable.text()
-            move_to_ppc(name)
+            move_to_added_ingredients(name)
             $(ui.draggable).remove()
         }
     })
@@ -57,20 +57,20 @@ var display_lists = function(non_ppc, ppc){
     })
 }
 
-var move_to_ppc = function(name){
+var move_to_added_ingredients = function(name){
     var data_to_save = {"name": name}
     console.log(name)
     console.log(data_to_save)         
     $.ajax({
         type: "POST",
-        url: "move_to_ppc",                
+        url: "move_to_added_ingredients",                
         dataType : "json",
         contentType: "application/json; charset=utf-8",
         data : JSON.stringify(data_to_save),
         success: function(result){
-            var ppc = result["ppc_people"]
-            var non_ppc = result["non_ppc_people"]
-            display_lists(non_ppc, ppc)
+            var added_ingredients = result["added_ingredients"]
+            var available_ingredients = result["available_ingredients"]
+            display_lists(available_ingredients, added_ingredients)
         },
         error: function(request, status, error){
             console.log("Error");
@@ -81,18 +81,18 @@ var move_to_ppc = function(name){
     });
 }
 
-var move_to_non_ppc = function(name){
+var move_to_available_ingredients = function(name){
     var data_to_save = {"name": name}         
     $.ajax({
         type: "POST",
-        url: "move_to_non_ppc",                
+        url: "move_to_available_ingredients",                
         dataType : "json",
         contentType: "application/json; charset=utf-8",
         data : JSON.stringify(data_to_save),
         success: function(result){
-            var ppc = result["ppc_people"]
-            var non_ppc = result["non_ppc_people"]
-            display_lists(non_ppc, ppc)
+            var added_ingredients = result["added_ingredients"]
+            var available_ingredients = result["available_ingredients"]
+            display_lists(available_ingredients, added_ingredients)
         },
         error: function(request, status, error){
             console.log("Error");
@@ -104,5 +104,5 @@ var move_to_non_ppc = function(name){
 }
 
 $(document).ready(function(){
-    display_lists(non_ppc, ppc)
+    display_lists(available_ingredients, added_ingredients)
 })
