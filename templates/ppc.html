@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		.container{
+			padding: 10px;
+			text-align: center;
+		}
+
+		.row{
+			margin: 25px;
+			font-size: 24px;
+		}
+
+		.title{
+			font-size: 36px;
+		}
+
+		#non-target, #ppc-target{
+			padding: 30px;
+		}
+
+		.draggable-committee, .draggable-employee{
+			border: .5px solid black;
+			padding: 10px;
+		}
+
+		.hover, .ui-draggable-dragging {
+			background-color: yellow;
+			cursor: move;
+			z-index: 1;
+		}
+
+		.ui-droppable{
+			background-color: #C2DEEA;
+		}
+
+		.ui-droppable-active{
+			background-color: #0000FF;
+			color: white;
+		}
+
+		.ui-droppable-hover{
+			background-color: #000075;
+			color: white;
+		}
+
+	</style>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384- GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  	 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  	 <script type="text/javascript" src="{{ url_for('static', filename = 'ppc.js') }}"></script>
+
+  	 <script>
+  	 	var non_ppc = {{non_ppc|tojson}} 
+  	 	var ppc = {{ppc|tojson}}
+  	 </script>
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 title">Party Planning Committee</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div id="non-target">Non-PPC</div>
+				<div id="non-ppc-members"></div>
+			</div>
+			<div class="col-md-6">
+				<div id="ppc-target">PCC</div>
+				<div id="ppc-members"></div>
+			</div>
+		</div>
+	<div>
+</body>
+
+</html>
