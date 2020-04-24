@@ -66,13 +66,17 @@ recipes = [
 available_ingredients = []
 added_ingredients = []
 
-@app.route('/')
-def ppc():
+@app.route('/<recipe_id>')
+def recipe(recipe_id=None):
     available_ingredients.clear()
     added_ingredients.clear()
-    for item in recipes[0]["mix_ingredients"]:
-        item["amount_added"] = 0
-        available_ingredients.append(item)
+
+    global recipe
+    for item in recipes:
+        if item["id"] == int(recipe_id):
+            for ingredient in item["mix_ingredients"]:
+                ingredient["amount_added"] = 0
+                available_ingredients.append(ingredient)
 
     return render_template('ppc.html', available_ingredients=available_ingredients, added_ingredients=added_ingredients)
 
