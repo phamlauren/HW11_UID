@@ -6,7 +6,8 @@ var display_lists = function(available_ingredients, added_ingredients){
     $.each(available_ingredients, function(i, ingredient){
         var available_ingredient = $("<div>")
         $(available_ingredient).addClass("draggable-employee")
-        $(available_ingredient).text(ingredient)
+        $(available_ingredient).attr("data-id", ingredient.id)
+        $(available_ingredient).text(ingredient.ingredient + ", " + ingredient.unit_size + ingredient.unit)
         $(available_ingredient).hover(function(){
             $(this).addClass("hover")
         }, function(){
@@ -18,7 +19,8 @@ var display_lists = function(available_ingredients, added_ingredients){
     $.each(added_ingredients, function(i, ingredient){
         var added_ingredient = $("<div>")
         $(added_ingredient).addClass("draggable-committee")
-        $(added_ingredient).text(ingredient)
+        $(added_ingredient).attr("data-id", ingredient.id)
+        $(added_ingredient).text(ingredient.ingredient + ", " + ingredient.amount_added + ingredient.unit)
         $(added_ingredient).hover(function(){
             $(this).addClass("hover")
         }, function(){
@@ -30,16 +32,16 @@ var display_lists = function(available_ingredients, added_ingredients){
     $("#non-target").droppable({
         accept: ".draggable-committee",
         drop: function(event, ui){
-            var name = ui.draggable.text()
-            move_to_available_ingredients(name)
+            var ingredient_id = ui.draggable.data("id")
+            move_to_available_ingredients(ingredient_id)
             $(ui.draggable).remove()
         }
     })
     $("#ppc-target").droppable({
         accept: ".draggable-employee",
         drop: function(event, ui){
-            var name = ui.draggable.text()
-            move_to_added_ingredients(name)
+            var ingredient_id = ui.draggable.data("id")
+            move_to_added_ingredients(ingredient_id)
             $(ui.draggable).remove()
         }
     })
@@ -57,8 +59,8 @@ var display_lists = function(available_ingredients, added_ingredients){
     })
 }
 
-var move_to_added_ingredients = function(name){
-    var data_to_save = {"name": name}
+var move_to_added_ingredients = function(ingredient_id){
+    var data_to_save = {"ingredient_id": ingredient_id}
     console.log(name)
     console.log(data_to_save)         
     $.ajax({
@@ -81,8 +83,8 @@ var move_to_added_ingredients = function(name){
     });
 }
 
-var move_to_available_ingredients = function(name){
-    var data_to_save = {"name": name}         
+var move_to_available_ingredients = function(ingredient_id){
+    var data_to_save = {"ingredient_id": ingredient_id}         
     $.ajax({
         type: "POST",
         url: "move_to_available_ingredients",                
