@@ -65,23 +65,29 @@ recipes = [
 
 available_ingredients = []
 added_ingredients = []
+selected_recipe = []
 
 @app.route('/<recipe_id>')
 def recipe(recipe_id=None):
+    selected_recipe.clear()
     available_ingredients.clear()
     added_ingredients.clear()
 
-    global recipe
     for item in recipes:
         if item["id"] == int(recipe_id):
+            selected_recipe.append(item)
             for ingredient in item["mix_ingredients"]:
                 ingredient["amount_added"] = 0
                 available_ingredients.append(ingredient)
+   
+    return render_template('recipe.html', recipe=selected_recipe[0], available_ingredients=available_ingredients, added_ingredients=added_ingredients)
 
-    return render_template('ppc.html', available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+#@app.route('/<recipe_id>/quiz')
+#def quiz(recipe_id=None):
+
 
 @app.route('/move_to_added_ingredients', methods=['GET', 'POST'])
-def move_to_ppc():
+def move_to_added_ingredients():
 
     json_data = request.get_json()   
     ingredient_id = json_data["ingredient_id"]
@@ -98,10 +104,10 @@ def move_to_ppc():
     if(ingredient_to_move["amount_added"] < 2):
         added_ingredients.insert(0, ingredient_to_move)
 
-    return jsonify(available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+    return jsonify(recipe=selected_recipe[0], available_ingredients=available_ingredients, added_ingredients=added_ingredients)
 
 @app.route('/move_to_available_ingredients', methods=['GET', 'POST'])
-def move_to_non_ppc():
+def move_to_available_ingredients():
 
     json_data = request.get_json()
     ingredient_id = json_data["ingredient_id"]
@@ -118,7 +124,7 @@ def move_to_non_ppc():
     if(ingredient_to_move["amount_added"] < 1):
         added_ingredients.remove(ingredient_to_move)
 
-    return jsonify(available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+    return jsonify(recipe=selected_recipe[0], available_ingredients=available_ingredients, added_ingredients=added_ingredients)
 
 if __name__ == '__main__':
    app.run(debug = True)

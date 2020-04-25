@@ -16,11 +16,16 @@
 			font-size: 36px;
 		}
 
-		#non-target, #ppc-target{
+		#non-target, #ppc-target, #recipe-name{
 			padding: 30px;
 		}
 
-		.draggable-committee, .draggable-employee{
+		.completed-item{
+			color: gray;
+			text-decoration: line-through;
+		}
+
+		.draggable-committee, .draggable-employee, .list-item{
 			border: .5px solid black;
 			padding: 10px;
 		}
@@ -31,7 +36,7 @@
 			z-index: 1;
 		}
 
-		.ui-droppable{
+		.ui-droppable, #recipe-name{
 			background-color: #C2DEEA;
 		}
 
@@ -54,6 +59,7 @@
   	 <script type="text/javascript" src="{{ url_for('static', filename = 'ppc.js') }}"></script>
 
   	 <script>
+  	 	var recipe = {{recipe|tojson}}
   	 	var available_ingredients = {{available_ingredients|tojson}} 
   	 	var added_ingredients = {{added_ingredients|tojson}}
   	 </script>
@@ -62,16 +68,20 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12 title">Mixing a Whiskey Sour</div>
+			<div class="col-md-12 title">Mixing a {{ recipe.name }}</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6">
-				<div id="non-target">Ingredients List</div>
-				<div id="available_ingredients"></div>
+			<div class="col-md-4">
+				<div id="recipe-name"></div>
+				<div id="recipe-instructions"></div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
+				<div id="non-target">Ingredients list</div>
+				<div id="available-ingredients"></div>
+			</div>
+			<div class="col-md-4">
 				<div id="ppc-target">Into the cocktail shaker</div>
-				<div id="added_ingredients"></div>
+				<div id="added-ingredients"></div>
 			</div>
 		</div>
 	<div>
