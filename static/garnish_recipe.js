@@ -11,10 +11,16 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
     $.each(recipe["garnish_ingredients"], function(i, item){
         var list_item = $("<div>")
         $(list_item).addClass("list-item")
-        if(item.amount == item.amount_added){
+        if((item.amount == item.amount_added) || (item.amount == null && added_ingredients.some(function(element){return element.id === item.id}))){
             $(list_item).addClass("completed-item")
         }
-        $(list_item).text(item.ingredient + ", " + item.amount + item.unit)
+        if(item.amount == null){
+            $(list_item).text(item.ingredient + "," + item.unit)
+        }
+        else{
+            $(list_item).text(item.ingredient + ", " + item.amount + item.unit)
+
+        }
         $("#recipe-instructions").append(list_item)
     })
  
@@ -28,7 +34,12 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
             var available_ingredient = $("<div>")
             $(available_ingredient).addClass("draggable-employee")
             $(available_ingredient).attr("data-id", ingredient.id)
-            $(available_ingredient).text(ingredient.ingredient + ", " + ingredient.unit_size + ingredient.unit)
+            if(ingredient.amount == null){
+                $(available_ingredient).text(ingredient.ingredient + "," + ingredient.unit)
+            }
+            else{
+                $(available_ingredient).text(ingredient.ingredient + ", " + "1" + ingredient.unit)
+            }
             $(available_ingredient).hover(function(){
                 $(this).addClass("hover")
             }, function(){
@@ -42,7 +53,12 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         var added_ingredient = $("<div>")
         $(added_ingredient).addClass("draggable-committee")
         $(added_ingredient).attr("data-id", ingredient.id)
-        $(added_ingredient).text(ingredient.ingredient + ", " + ingredient.amount_added + ingredient.unit)
+        if(ingredient.amount == null){
+            $(added_ingredient).text(ingredient.ingredient + "," + ingredient.unit)
+        }
+        else{
+            $(added_ingredient).text(ingredient.ingredient + ", " + ingredient.amount_added + ingredient.unit)
+        }
         $(added_ingredient).hover(function(){
             $(this).addClass("hover")
         }, function(){

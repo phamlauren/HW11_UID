@@ -22,7 +22,7 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
             var available_ingredient = $("<div>")
             $(available_ingredient).addClass("draggable-employee")
             $(available_ingredient).attr("data-id", ingredient.id)
-            $(available_ingredient).text(ingredient.ingredient + ", " + ingredient.unit_size + ingredient.unit)
+            $(available_ingredient).text(ingredient.ingredient + ", " + "1" + ingredient.unit)
             $(available_ingredient).hover(function(){
                 $(this).addClass("hover")
             }, function(){
