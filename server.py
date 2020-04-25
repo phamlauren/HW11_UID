@@ -605,7 +605,7 @@ def move_to_added_garnishes(recipe_id=None):
     ingredient_to_move = selected_recipe["garnish_ingredients"][int(ingredient_id)-1]
     ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
 
-    if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"]):
+    if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
         available_ingredients.remove(ingredient_to_move)
     if(ingredient_to_move["amount_added"] < 2):
         added_ingredients.insert(0, ingredient_to_move)
@@ -624,7 +624,7 @@ def move_to_available_garnishes(recipe_id=None):
 
     if(available_ingredients.count(ingredient_to_move) < 1):
         available_ingredients.insert(0, ingredient_to_move)
-    if(ingredient_to_move["amount_added"] < 1):
+    if(ingredient_to_move["amount_added"] < 1 or ingredient_to_move["amount"] is None):
         added_ingredients.remove(ingredient_to_move)
 
     return jsonify(recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
