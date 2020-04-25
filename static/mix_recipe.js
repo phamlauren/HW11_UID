@@ -7,6 +7,7 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
     //insert all new data
 
     $("#recipe-name").text(recipe["name"])
+    $("#recipe-name").attr("data-id", recipe["id"])
     $.each(recipe["mix_ingredients"], function(i, item){
         var list_item = $("<div>")
         $(list_item).addClass("list-item")
@@ -48,7 +49,8 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         accept: ".draggable-committee",
         drop: function(event, ui){
             var ingredient_id = ui.draggable.data("id")
-            move_to_available_ingredients(ingredient_id)
+            var recipe_id = $("#recipe-name").data("id")
+            move_to_available_ingredients(ingredient_id, recipe_id)
             $(ui.draggable).remove()
         }
     })
@@ -56,7 +58,8 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         accept: ".draggable-employee",
         drop: function(event, ui){
             var ingredient_id = ui.draggable.data("id")
-            move_to_added_ingredients(ingredient_id)
+            var recipe_id = $("#recipe-name").data("id")
+            move_to_added_ingredients(ingredient_id, recipe_id)
             $(ui.draggable).remove()
         }
     })
@@ -74,8 +77,8 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
     })
 }
 
-var move_to_added_ingredients = function(ingredient_id){
-    var data_to_save = {"ingredient_id": ingredient_id}        
+var move_to_added_ingredients = function(ingredient_id, recipe_id){
+    var data_to_save = {"ingredient_id": ingredient_id, "recipe_id": recipe_id}        
     $.ajax({
         type: "POST",
         url: "move_to_added_ingredients",                
@@ -102,8 +105,8 @@ var move_to_added_ingredients = function(ingredient_id){
     });
 }
 
-var move_to_available_ingredients = function(ingredient_id){
-    var data_to_save = {"ingredient_id": ingredient_id}         
+var move_to_available_ingredients = function(ingredient_id, recipe_id){
+    var data_to_save = {"ingredient_id": ingredient_id, "recipe_id": recipe_id}         
     $.ajax({
         type: "POST",
         url: "move_to_available_ingredients",                

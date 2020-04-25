@@ -566,118 +566,100 @@ recipes = [
 
 available_ingredients = []
 added_ingredients = []
-selected_recipe = []
 
 @app.route('/<recipe_id>')
 def recipe(recipe_id=None):
-    selected_recipe.clear()
     available_ingredients.clear()
     added_ingredients.clear()
 
-    for item in recipes:
-        if item["id"] == int(recipe_id):
-            selected_recipe.append(item)
-            for ingredient in item["mix_ingredients"]:
-                ingredient["amount_added"] = 0
-                available_ingredients.append(ingredient)
+    selected_recipe = recipes[int(recipe_id)-1]
+    for ingredient in selected_recipe["mix_ingredients"]:
+        ingredient["amount_added"] = 0
+        available_ingredients.append(ingredient)
    
-    return render_template('mix_recipe.html', recipe=selected_recipe[0], available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+    return render_template('mix_recipe.html', recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
 
 
 @app.route('/move_to_added_ingredients', methods=['GET', 'POST'])
 def move_to_added_ingredients():
-
     json_data = request.get_json()   
+    recipe_id = json_data["recipe_id"]
     ingredient_id = json_data["ingredient_id"]
 
-    i = 0;
-    for item in recipes[0]["mix_ingredients"]:
-        if item["id"] == ingredient_id:
-            ingredient_to_move = recipes[0]["mix_ingredients"][i]
-            ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
-        i+=1
+    selected_recipe = recipes[int(recipe_id)-1]
+    ingredient_to_move = selected_recipe["mix_ingredients"][int(ingredient_id)-1]
+    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
 
     if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"]):
         available_ingredients.remove(ingredient_to_move)
     if(ingredient_to_move["amount_added"] < 2):
         added_ingredients.insert(0, ingredient_to_move)
 
-    return jsonify(recipe=selected_recipe[0], available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+    return jsonify(recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
 
 @app.route('/move_to_available_ingredients', methods=['GET', 'POST'])
 def move_to_available_ingredients():
-
     json_data = request.get_json()
+    recipe_id = json_data["recipe_id"]
     ingredient_id = json_data["ingredient_id"]
 
-    i = 0;
-    for item in recipes[0]["mix_ingredients"]:
-        if item["id"] == ingredient_id:
-            ingredient_to_move = recipes[0]["mix_ingredients"][i]
-            ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] - 1
-        i+=1
+    selected_recipe = recipes[int(recipe_id)-1]
+    ingredient_to_move = selected_recipe["mix_ingredients"][int(ingredient_id)-1]
+    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] - 1
 
     if(available_ingredients.count(ingredient_to_move) < 1):
         available_ingredients.insert(0, ingredient_to_move)
     if(ingredient_to_move["amount_added"] < 1):
         added_ingredients.remove(ingredient_to_move)
 
-    return jsonify(recipe=selected_recipe[0], available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+    return jsonify(recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
 
 @app.route('/<recipe_id>/garnish')
 def garnish(recipe_id=None):
     available_ingredients.clear()
     added_ingredients.clear()
 
-    for item in recipes:
-        if item["id"] == int(recipe_id):
-            selected_recipe.append(item)
-            for ingredient in item["garnish_ingredients"]:
-                ingredient["amount_added"] = 0
-                available_ingredients.append(ingredient)
+    selected_recipe = recipes[int(recipe_id)-1]
+    for ingredient in selected_recipe["garnish_ingredients"]:
+        ingredient["amount_added"] = 0
+        available_ingredients.append(ingredient)
 
-    return render_template('garnish_recipe.html', recipe=selected_recipe[0], available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+    return render_template('garnish_recipe.html', recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
 
 
 @app.route('/<recipe_id>/move_to_added_garnishes', methods=['GET', 'POST'])
 def move_to_added_garnishes(recipe_id=None):
     json_data = request.get_json()   
+    recipe_id = json_data["recipe_id"]
     ingredient_id = json_data["ingredient_id"]
 
-    i = 0;
-    for item in recipes[0]["garnish_ingredients"]:
-        if item["id"] == ingredient_id:
-            ingredient_to_move = recipes[0]["garnish_ingredients"][i]
-            ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
-        i+=1
+    selected_recipe = recipes[int(recipe_id)-1]
+    ingredient_to_move = selected_recipe["garnish_ingredients"][int(ingredient_id)-1]
+    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
 
     if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"]):
         available_ingredients.remove(ingredient_to_move)
     if(ingredient_to_move["amount_added"] < 2):
         added_ingredients.insert(0, ingredient_to_move)
 
-    return jsonify(recipe=selected_recipe[0], available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+    return jsonify(recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
 
 @app.route('/<recipe_id>/move_to_available_garnishes', methods=['GET', 'POST'])
 def move_to_available_garnishes(recipe_id=None):
-
     json_data = request.get_json()
+    recipe_id = json_data["recipe_id"]
     ingredient_id = json_data["ingredient_id"]
 
-    i = 0;
-    for item in recipes[0]["garnish_ingredients"]:
-        if item["id"] == ingredient_id:
-            ingredient_to_move = recipes[0]["garnish_ingredients"][i]
-            ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] - 1
-        i+=1
+    selected_recipe = recipes[int(recipe_id)-1]
+    ingredient_to_move = selected_recipe["garnish_ingredients"][int(ingredient_id)-1]
+    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] - 1
 
     if(available_ingredients.count(ingredient_to_move) < 1):
         available_ingredients.insert(0, ingredient_to_move)
     if(ingredient_to_move["amount_added"] < 1):
         added_ingredients.remove(ingredient_to_move)
 
-    return jsonify(recipe=selected_recipe[0], available_ingredients=available_ingredients, added_ingredients=added_ingredients)
-
+    return jsonify(recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
 
 #@app.route('/<recipe_id>/quiz')
 #def quiz(recipe_id=None):
