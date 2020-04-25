@@ -17,15 +17,7 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         $("#recipe-instructions").append(list_item)
     })
 
-    console.log(available_ingredients)
-    console.log(available_ingredients.length)
-    if(available_ingredients.length < 1){
-        var success_message = $("<div>")
-        $(success_message).text("Congratulations! You've successfully made a " + recipe["name"] + ".")
-        $("#available-ingredients").append(success_message)
-    }
-    else{    
-        $.each(available_ingredients, function(i, ingredient){
+    $.each(available_ingredients, function(i, ingredient){
             var available_ingredient = $("<div>")
             $(available_ingredient).addClass("draggable-employee")
             $(available_ingredient).attr("data-id", ingredient.id)
@@ -36,8 +28,8 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
                 $(this).removeClass("hover")
             })
             $("#available-ingredients").append(available_ingredient)
-        })
-    }
+    })
+
 
     $.each(added_ingredients, function(i, ingredient){
         var added_ingredient = $("<div>")
@@ -94,7 +86,12 @@ var move_to_added_ingredients = function(ingredient_id){
             var recipe = result["recipe"]
             var added_ingredients = result["added_ingredients"]
             var available_ingredients = result["available_ingredients"]
-            display_lists(recipe, available_ingredients, added_ingredients)
+            if(available_ingredients.length < 1){
+                window.location.href = "http://127.0.0.1:5000/" + recipe["id"] + "/garnish"
+            }
+            else{
+                display_lists(recipe, available_ingredients, added_ingredients)
+            }
         },
         error: function(request, status, error){
             console.log("Error");
