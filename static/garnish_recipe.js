@@ -14,7 +14,10 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         if((item.amount == item.amount_added) || (item.amount == null && added_ingredients.some(function(element){return element.id === item.id}))){
             $(list_item).addClass("completed-item")
         }
-        if(item.amount == null){
+        if(item.unit == ""){
+            $(list_item).text(item.ingredient)
+        }
+        else if(item.amount == null){
             $(list_item).text(item.ingredient + "," + item.unit)
         }
         else{
@@ -34,7 +37,10 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
             var available_ingredient = $("<div>")
             $(available_ingredient).addClass("draggable-employee")
             $(available_ingredient).attr("data-id", ingredient.id)
-            if(ingredient.amount == null){
+            if(ingredient.unit == ""){
+                $(available_ingredient).text(ingredient.ingredient)
+            }
+            else if(ingredient.amount == null){
                 $(available_ingredient).text(ingredient.ingredient + "," + ingredient.unit)
             }
             else{
@@ -50,10 +56,14 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
     }
 
     $.each(added_ingredients, function(i, ingredient){
+        console.log(added_ingredients)
         var added_ingredient = $("<div>")
         $(added_ingredient).addClass("draggable-committee")
         $(added_ingredient).attr("data-id", ingredient.id)
-        if(ingredient.amount == null){
+        if(ingredient.unit == ""){
+            $(added_ingredient).text(ingredient.ingredient)
+        }
+        else if(ingredient.amount == null){
             $(added_ingredient).text(ingredient.ingredient + "," + ingredient.unit)
         }
         else{

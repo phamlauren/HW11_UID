@@ -405,7 +405,7 @@ recipes = [
             },
             {
                 "id": 3,
-                "ingredient": "Coffe liquer",
+                "ingredient": "Coffe liqueur",
                 "amount": 1,
                 "unit": " oz",
                 "amount_added": 0,
@@ -844,29 +844,57 @@ recipes = [
                 "id": 1,
                 "ingredient": "Orange peel",
                 "amount": 2,
-                "unit": " twists",
+                "unit": " twist",
                 "amount_added": 0,
             },
         ],
     },
     {
         "id": 17,
-        "name": "",
+        "name": "Lemon-Tini",
         "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
-                "ingredient": "",
-                "amount": 0, 
-                "unit": "",
+                "ingredient": "Ice",
+                "amount": 2, 
+                "unit": " cup",
+                "amount_added": 0,
+            },
+            {
+                "id": 2,
+                "ingredient": "Lemon vodka",
+                "amount": 3, 
+                "unit": "/2 oz",
+                "amount_added": 0,
+            },
+            {
+                "id": 3,
+                "ingredient": "Lemoncello",
+                "amount": 3, 
+                "unit": "/4 oz",
+                "amount_added": 0,
+            },
+            {
+                "id": 4,
+                "ingredient": "Lemon juice",
+                "amount": 1, 
+                "unit": "/4 oz",
+                "amount_added": 0,
+            },
+            {
+                "id": 5,
+                "ingredient": "Simple syrup",
+                "amount": 1, 
+                "unit": "/4 oz",
                 "amount_added": 0,
             },
         ],
         "garnish_ingredients": [
             {
                 "id": 1,
-                "ingredient": "",
-                "amount": 0,
+                "ingredient": "Lemon twist",
+                "amount": 1,
                 "unit": "",
                 "amount_added": 0,
             },
@@ -874,22 +902,50 @@ recipes = [
     },
     {
         "id": 18,
-        "name": "",
+        "name": "Aviation",
         "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
-                "ingredient": "",
-                "amount": 0, 
-                "unit": "",
+                "ingredient": "Ice",
+                "amount": 2, 
+                "unit": " cup",
+                "amount_added": 0,
+            },
+            {
+                "id": 2,
+                "ingredient": "Gin",
+                "amount": 2, 
+                "unit": " oz",
+                "amount_added": 0,
+            },
+            {
+                "id": 3,
+                "ingredient": "Maraschino liqueur",
+                "amount": 1, 
+                "unit": "/4 oz",
+                "amount_added": 0,
+            },
+            {
+                "id": 4,
+                "ingredient": "Crème de violette",
+                "amount": 1, 
+                "unit": "/4 oz",
+                "amount_added": 0,
+            },
+            {
+                "id": 5,
+                "ingredient": "Lemon juice",
+                "amount": 1, 
+                "unit": "/2 oz",
                 "amount_added": 0,
             },
         ],
         "garnish_ingredients": [
             {
                 "id": 1,
-                "ingredient": "",
-                "amount": 0,
+                "ingredient": "Flamed lemon peel",
+                "amount": 1,
                 "unit": "",
                 "amount_added": 0,
             },
@@ -897,13 +953,41 @@ recipes = [
     },
     {
         "id": 19,
-        "name": "",
+        "name": "White Lady",
         "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
-                "ingredient": "",
-                "amount": 0, 
+                "ingredient": "Ice",
+                "amount": 2, 
+                "unit": " cup",
+                "amount_added": 0,
+            },
+            {
+                "id": 2,
+                "ingredient": "Gin",
+                "amount": 2, 
+                "unit": " oz",
+                "amount_added": 0,
+            },
+            {
+                "id": 3,
+                "ingredient": "Orange liqueur",
+                "amount": 1, 
+                "unit": "/2 oz",
+                "amount_added": 0,
+            },
+            {
+                "id": 4,
+                "ingredient": "Lemon juice",
+                "amount": 1, 
+                "unit": "/2 oz",
+                "amount_added": 0,
+            },
+            {
+                "id": 5,
+                "ingredient": "Egg white",
+                "amount": 1, 
                 "unit": "",
                 "amount_added": 0,
             },
@@ -911,8 +995,8 @@ recipes = [
         "garnish_ingredients": [
             {
                 "id": 1,
-                "ingredient": "",
-                "amount": 0,
+                "ingredient": "Orange peel",
+                "amount": 1,
                 "unit": "",
                 "amount_added": 0,
             },
@@ -920,14 +1004,35 @@ recipes = [
     },
     {
         "id": 20,
-        "name": "",
+        "name": "Bee's Knees",
         "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
-                "ingredient": "",
-                "amount": 0, 
-                "unit": "",
+                "ingredient": "Ice",
+                "amount": 2, 
+                "unit": " cup",
+                "amount_added": 0,
+            },
+            {
+                "id": 2,
+                "ingredient": "Gin",
+                "amount": 2, 
+                "unit": " oz",
+                "amount_added": 0,
+            },
+            {
+                "id": 3,
+                "ingredient": "Lemon juice",
+                "amount": 3, 
+                "unit": "/4 oz",
+                "amount_added": 0,
+            },
+            {
+                "id": 4,
+                "ingredient": "Honey syrup",
+                "amount": 3, 
+                "unit": "/4 oz",
                 "amount_added": 0,
             },
         ],
@@ -943,22 +1048,71 @@ recipes = [
     },
     {
         "id": 21,
-        "name": "",
+        "name": "Blue Hawaii",
         "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
-                "ingredient": "",
-                "amount": 0, 
-                "unit": "",
+                "ingredient": "Ice",
+                "amount": 2, 
+                "unit": " cup",
+                "amount_added": 0,
+            },
+            {
+                "id": 2,
+                "ingredient": "Vodka",
+                "amount": 3, 
+                "unit": "/4 oz",
+                "amount_added": 0,
+            },
+            {
+                "id": 3,
+                "ingredient": "Light rum",
+                "amount": 3, 
+                "unit": "/4 oz",
+                "amount_added": 0,
+            },
+            {
+                "id": 4,
+                "ingredient": "Blue curaçao",
+                "amount": 1, 
+                "unit": "/2 oz",
+                "amount_added": 0,
+            },
+            {
+                "id": 5,
+                "ingredient": "Pineapple juice",
+                "amount": 2, 
+                "unit": " oz",
+                "amount_added": 0,
+            },
+            {
+                "id": 6,
+                "ingredient": "Cream of coconut",
+                "amount": 3, 
+                "unit": "/4 oz",
                 "amount_added": 0,
             },
         ],
         "garnish_ingredients": [
             {
                 "id": 1,
-                "ingredient": "",
-                "amount": 0,
+                "ingredient": "Pineapple",
+                "amount": 1,
+                "unit": " wedge",
+                "amount_added": 0,
+            },
+            {
+                "id": 2,
+                "ingredient": "Maraschino cherry",
+                "amount": 1, 
+                "unit": "",
+                "amount_added": 0,
+            },
+            {
+                "id": 3,
+                "ingredient": "Cocktail umbrella",
+                "amount": 1, 
                 "unit": "",
                 "amount_added": 0,
             },
@@ -992,7 +1146,7 @@ def move_to_added_ingredients():
     ingredient_to_move = selected_recipe["mix_ingredients"][int(ingredient_id)-1]
     ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
 
-    if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"]):
+    if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
         available_ingredients.remove(ingredient_to_move)
     if(ingredient_to_move["amount_added"] < 2):
         added_ingredients.insert(0, ingredient_to_move)
@@ -1009,7 +1163,7 @@ def move_to_available_ingredients():
     ingredient_to_move = selected_recipe["mix_ingredients"][int(ingredient_id)-1]
     ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] - 1
 
-    if(available_ingredients.count(ingredient_to_move) < 1):
+    if(available_ingredients.count(ingredient_to_move) < 1 or ingredient_to_move["amount"] is None):
         available_ingredients.insert(0, ingredient_to_move)
     if(ingredient_to_move["amount_added"] < 1):
         added_ingredients.remove(ingredient_to_move)
