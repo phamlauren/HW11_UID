@@ -56,7 +56,7 @@
   	 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  	 <script type="text/javascript" src="{{ url_for('static', filename = 'quiz_recipe.js') }}"></script>
+  	 <script type="text/javascript" src="{{ url_for('static', filename = 'mix_quiz.js') }}"></script>
 
   	 <script>
   	 	var recipe = {{recipe|tojson}}
@@ -72,11 +72,11 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<div id="non-target">Add your ingredients to the cocktail shaker!</div>
+				<div id="ppc-target">Add your ingredients to the cocktail shaker!</div>
 				<div id="added-ingredients"></div>
 			</div>
 			<div class="col-md-6">
-				<div id="ppc-target">Ingredients</div>
+				<div id="non-target">Ingredients</div>
 				<div id="available-ingredients"></div>
 			</div>
 		</div>

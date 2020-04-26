@@ -1,13 +1,14 @@
 from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
+import random
+from random import shuffle
 app = Flask(__name__)
 
 recipes = [
     {
         "id": 1,
         "name": "Whiskey Sour",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -58,7 +59,6 @@ recipes = [
     {
         "id": 2,
         "name": "Margarita",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -109,7 +109,6 @@ recipes = [
     {
         "id": 3,
         "name": "Cosmopolitan",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -160,7 +159,6 @@ recipes = [
     {
         "id": 4,
         "name": "Mojito",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -211,7 +209,6 @@ recipes = [
     {
         "id": 5,
         "name": "Gimlet",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -255,7 +252,6 @@ recipes = [
     {
         "id": 6,
         "name": "Sidecar",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -299,7 +295,6 @@ recipes = [
     {
         "id": 7,
         "name": "French 75",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -350,7 +345,6 @@ recipes = [
     {
         "id": 8,
         "name": "Daiquiri",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -387,7 +381,6 @@ recipes = [
     {
         "id": 9,
         "name": "Espresso Martini",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -438,7 +431,6 @@ recipes = [
     {
         "id": 10,
         "name": "Negroni",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -482,7 +474,6 @@ recipes = [
     {
         "id": 11,
         "name": "Bloody Mary",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -575,7 +566,6 @@ recipes = [
     {
         "id": 12,
         "name": "Mai Tai",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -633,7 +623,6 @@ recipes = [
     {
         "id": 13,
         "name": "Gin fizz",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -677,7 +666,6 @@ recipes = [
     {
         "id": 14,
         "name": "Planters' Punch",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -736,7 +724,6 @@ recipes = [
     {
         "id": 15,
         "name": "Singapore Sling",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -794,7 +781,6 @@ recipes = [
     {
         "id": 16,
         "name": "Floridian",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -852,7 +838,6 @@ recipes = [
     {
         "id": 17,
         "name": "Lemon-Tini",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -903,7 +888,6 @@ recipes = [
     {
         "id": 18,
         "name": "Aviation",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -954,7 +938,6 @@ recipes = [
     {
         "id": 19,
         "name": "White Lady",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -1005,7 +988,6 @@ recipes = [
     {
         "id": 20,
         "name": "Bee's Knees",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -1049,7 +1031,6 @@ recipes = [
     {
         "id": 21,
         "name": "Blue Hawaii",
-        "ordered": False,
         "mix_ingredients": [
             {
                 "id": 1,
@@ -1217,8 +1198,74 @@ def move_to_available_garnishes(recipe_id=None):
 
     return jsonify(recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
 
-#@app.route('/<recipe_id>/quiz')
-#def quiz(recipe_id=None):
+@app.route('/<recipe_id>/quiz')
+def quiz(recipe_id=None):
+    random_recipe_id1 = random.randint(1, 21)
+    random_recipe_id2 = random.randint(1, 21)
+
+    available_ingredients.clear()
+    added_ingredients.clear()
+
+    selected_recipe = recipes[int(recipe_id)-1]
+    mix_in_recipe1 = recipes[int(random_recipe_id1)-1]
+    mix_in_recipe2 = recipes[int(random_recipe_id2)-1]
+    for ingredient in selected_recipe["mix_ingredients"]:
+        ingredient["amount_added"] = 0
+        ingredient["quiz_correct"] = True
+        available_ingredients.append(ingredient)
+    for ingredient in mix_in_recipe1["mix_ingredients"]:
+        ingredient["amount_added"] = 0
+        ingredient["quiz_correct"] = False
+        available_ingredients.append(ingredient)
+    for ingredient in mix_in_recipe2["mix_ingredients"]:
+        ingredient["amount_added"] = 0
+        ingredient["quiz_correct"] = False
+        available_ingredients.append(ingredient)
+
+    shuffle(available_ingredients)
+    print(available_ingredients)
+
+    return render_template('mix_quiz.html', recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+
+@app.route('/<recipe_id>/add_to_shaker', methods=['GET', 'POST'])
+def add_to_shaker(recipe_id=None):
+    json_data = request.get_json()   
+    recipe_id = json_data["recipe_id"]
+    ingredient_id = json_data["ingredient_id"]
+
+    selected_recipe = recipes[int(recipe_id)-1]
+    ingredient_to_move = selected_recipe["mix_ingredients"][int(ingredient_id)-1]
+    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
+
+    if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
+        available_ingredients.remove(ingredient_to_move)
+    if(ingredient_to_move["amount_added"] < 2):
+        added_ingredients.insert(0, ingredient_to_move)
+
+    print(available_ingredients)
+    print(added_ingredients)
+
+    return jsonify(recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+
+@app.route('/<recipe_id>/remove_from_shaker', methods=['GET', 'POST'])
+def remove_from_shaker(recipe_id=None):
+    json_data = request.get_json()
+    recipe_id = json_data["recipe_id"]
+    ingredient_id = json_data["ingredient_id"]
+
+    selected_recipe = recipes[int(recipe_id)-1]
+    ingredient_to_move = selected_recipe["mix_ingredients"][int(ingredient_id)-1]
+    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] - 1
+
+    if(available_ingredients.count(ingredient_to_move) < 1 or ingredient_to_move["amount"] is None):
+        available_ingredients.insert(0, ingredient_to_move)
+    if(ingredient_to_move["amount_added"] < 1):
+        added_ingredients.remove(ingredient_to_move)
+
+    print(available_ingredients)
+    print(added_ingredients)
+
+    return jsonify(recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
 
 if __name__ == '__main__':
    app.run(debug = True)
