@@ -1217,31 +1217,30 @@ def quiz(recipe_id=None):
     mix_in_recipe2 = recipes[int(random_recipe_id2)-1]
 
     temp_list = []
-    i=1
+
     for ingredient in selected_recipe["mix_ingredients"]:
         ingredient["amount_added"] = 0
         ingredient["quiz_correct"] = True
-        ingredient["quiz_id"] = i
         removed_from_shaker.append(ingredient)
         temp_list.append(ingredient["ingredient"])
-        i = i + 1
     for ingredient in mix_in_recipe1["mix_ingredients"]:
         if ingredient["ingredient"] not in temp_list:
             ingredient["amount_added"] = 0
             ingredient["quiz_correct"] = False
-            ingredient["quiz_id"] = i
             removed_from_shaker.append(ingredient)
-        i = i + 1
     for ingredient in mix_in_recipe2["mix_ingredients"]:
         if ingredient["ingredient"] not in temp_list:
             ingredient["amount_added"] = 0
             ingredient["quiz_correct"] = False
-            ingredient["quiz_id"] = i
             removed_from_shaker.append(ingredient)
+
+    # print(temp_list)
+    shuffle(removed_from_shaker)
+    i=1
+    for ingredient in removed_from_shaker:
+        ingredient["quiz_id"] = i
         i = i + 1
 
-    print(temp_list)
-    shuffle(removed_from_shaker)
     print(removed_from_shaker)
 
     return render_template('mix_quiz.html', recipe=selected_recipe, available_ingredients=removed_from_shaker, added_ingredients=added_to_shaker)
@@ -1250,21 +1249,27 @@ def quiz(recipe_id=None):
 def add_to_shaker(recipe_id=None):
     json_data = request.get_json()   
     recipe_id = json_data["recipe_id"]
-    ingredient_id = json_data["ingredient_id"]
+    ingredient_id = json_data["ingredient_id"] # receives QUIZ ID, not regular ID
 
     selected_recipe = recipes[int(recipe_id)-1]
-    ingredient_to_move = selected_recipe["mix_ingredients"][int(ingredient_id)-1]
-    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
+    ingredient_to_move = removed_from_shaker[int(ingredient_id)-1]
 
-    if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
-        removed_from_shaker.remove(ingredient_to_move)
-    if(ingredient_to_move["amount_added"] < 2):
-        added_to_shaker.insert(0, ingredient_to_move)
+    if ingredient_to_move["quiz_correct"] is False:
+        error_message = "Oops! The recipe for a " + selected_recipe["name"] + " doesn't call for any " + ingredient_to_move["ingredient"].lower() + ". Try again!"
+    else:
+        ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
+        error_message = None
+        if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
+            removed_from_shaker.remove(ingredient_to_move)
+            i=1
+            for ingredient in removed_from_shaker:
+                ingredient["quiz_id"] = i
+                i = i + 1
+        if(ingredient_to_move["amount_added"] < 2):
+            added_to_shaker.insert(0, ingredient_to_move)
 
     print(removed_from_shaker)
     print(added_to_shaker)
-
-    error_message = "Oops! That ingredient isn't in the recipe for a " + selected_recipe["name"]
 
     return jsonify(error_message=error_message, recipe=selected_recipe, available_ingredients=removed_from_shaker, added_ingredients=added_to_shaker)
 

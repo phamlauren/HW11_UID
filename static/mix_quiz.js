@@ -6,7 +6,7 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
     //insert all new data
 
     $("#ppc-target").attr("data-id", recipe["id"])
-    $.each(recipe["garnish_ingredients"], function(i, item){
+    $.each(recipe["mix_ingredients"], function(i, item){
         var list_item = $("<div>")
         $(list_item).addClass("list-item")
         if((item.amount == item.amount_added) || (item.amount == null && added_ingredients.some(function(element){return element.quiz_id === item.quiz_id}))){
