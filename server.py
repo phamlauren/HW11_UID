@@ -1104,6 +1104,12 @@ recipes = [
 available_ingredients = []
 added_ingredients = []
 
+available_garnishes = []
+added_garnishes = []
+
+removed_from_shaker = []
+added_to_shaker = []
+
 @app.route('/<recipe_id>')
 def recipe(recipe_id=None):
     available_ingredients.clear()
@@ -1153,15 +1159,15 @@ def move_to_available_ingredients():
 
 @app.route('/<recipe_id>/garnish')
 def garnish(recipe_id=None):
-    available_ingredients.clear()
-    added_ingredients.clear()
+    available_garnishes.clear()
+    added_garnishes.clear()
 
     selected_recipe = recipes[int(recipe_id)-1]
     for ingredient in selected_recipe["garnish_ingredients"]:
         ingredient["amount_added"] = 0
-        available_ingredients.append(ingredient)
+        available_garnishes.append(ingredient)
 
-    return render_template('garnish_recipe.html', recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+    return render_template('garnish_recipe.html', recipe=selected_recipe, available_ingredients=available_garnishes, added_ingredients=added_garnishes)
 
 
 @app.route('/<recipe_id>/move_to_added_garnishes', methods=['GET', 'POST'])
@@ -1175,11 +1181,11 @@ def move_to_added_garnishes(recipe_id=None):
     ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
 
     if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
-        available_ingredients.remove(ingredient_to_move)
+        available_garnishes.remove(ingredient_to_move)
     if(ingredient_to_move["amount_added"] < 2):
-        added_ingredients.insert(0, ingredient_to_move)
+        added_garnishes.insert(0, ingredient_to_move)
 
-    return jsonify(recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+    return jsonify(recipe=selected_recipe, available_ingredients=available_garnishes, added_ingredients=added_garnishes)
 
 @app.route('/<recipe_id>/move_to_available_garnishes', methods=['GET', 'POST'])
 def move_to_available_garnishes(recipe_id=None):
@@ -1192,40 +1198,53 @@ def move_to_available_garnishes(recipe_id=None):
     ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] - 1
 
     if(available_ingredients.count(ingredient_to_move) < 1):
-        available_ingredients.insert(0, ingredient_to_move)
+        available_garnishes.insert(0, ingredient_to_move)
     if(ingredient_to_move["amount_added"] < 1 or ingredient_to_move["amount"] is None):
-        added_ingredients.remove(ingredient_to_move)
+        added_garnishes.remove(ingredient_to_move)
 
-    return jsonify(recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+    return jsonify(recipe=selected_recipe, available_ingredients=available_garnishes, added_ingredients=added_garnishes)
 
 @app.route('/<recipe_id>/quiz')
 def quiz(recipe_id=None):
     random_recipe_id1 = random.randint(1, 21)
     random_recipe_id2 = random.randint(1, 21)
 
-    available_ingredients.clear()
-    added_ingredients.clear()
+    removed_from_shaker.clear()
+    added_to_shaker.clear()
 
     selected_recipe = recipes[int(recipe_id)-1]
     mix_in_recipe1 = recipes[int(random_recipe_id1)-1]
     mix_in_recipe2 = recipes[int(random_recipe_id2)-1]
+
+    temp_list = []
+    i=1
     for ingredient in selected_recipe["mix_ingredients"]:
         ingredient["amount_added"] = 0
         ingredient["quiz_correct"] = True
-        available_ingredients.append(ingredient)
+        ingredient["quiz_id"] = i
+        removed_from_shaker.append(ingredient)
+        temp_list.append(ingredient["ingredient"])
+        i = i + 1
     for ingredient in mix_in_recipe1["mix_ingredients"]:
-        ingredient["amount_added"] = 0
-        ingredient["quiz_correct"] = False
-        available_ingredients.append(ingredient)
+        if ingredient["ingredient"] not in temp_list:
+            ingredient["amount_added"] = 0
+            ingredient["quiz_correct"] = False
+            ingredient["quiz_id"] = i
+            removed_from_shaker.append(ingredient)
+        i = i + 1
     for ingredient in mix_in_recipe2["mix_ingredients"]:
-        ingredient["amount_added"] = 0
-        ingredient["quiz_correct"] = False
-        available_ingredients.append(ingredient)
+        if ingredient["ingredient"] not in temp_list:
+            ingredient["amount_added"] = 0
+            ingredient["quiz_correct"] = False
+            ingredient["quiz_id"] = i
+            removed_from_shaker.append(ingredient)
+        i = i + 1
 
-    shuffle(available_ingredients)
-    print(available_ingredients)
+    print(temp_list)
+    shuffle(removed_from_shaker)
+    print(removed_from_shaker)
 
-    return render_template('mix_quiz.html', recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+    return render_template('mix_quiz.html', recipe=selected_recipe, available_ingredients=removed_from_shaker, added_ingredients=added_to_shaker)
 
 @app.route('/<recipe_id>/add_to_shaker', methods=['GET', 'POST'])
 def add_to_shaker(recipe_id=None):
@@ -1238,14 +1257,16 @@ def add_to_shaker(recipe_id=None):
     ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
 
     if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
-        available_ingredients.remove(ingredient_to_move)
+        removed_from_shaker.remove(ingredient_to_move)
     if(ingredient_to_move["amount_added"] < 2):
-        added_ingredients.insert(0, ingredient_to_move)
+        added_to_shaker.insert(0, ingredient_to_move)
 
-    print(available_ingredients)
-    print(added_ingredients)
+    print(removed_from_shaker)
+    print(added_to_shaker)
 
-    return jsonify(recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+    error_message = "Oops! That ingredient isn't in the recipe for a " + selected_recipe["name"]
+
+    return jsonify(error_message=error_message, recipe=selected_recipe, available_ingredients=removed_from_shaker, added_ingredients=added_to_shaker)
 
 @app.route('/<recipe_id>/remove_from_shaker', methods=['GET', 'POST'])
 def remove_from_shaker(recipe_id=None):
@@ -1257,15 +1278,15 @@ def remove_from_shaker(recipe_id=None):
     ingredient_to_move = selected_recipe["mix_ingredients"][int(ingredient_id)-1]
     ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] - 1
 
-    if(available_ingredients.count(ingredient_to_move) < 1 or ingredient_to_move["amount"] is None):
-        available_ingredients.insert(0, ingredient_to_move)
+    if(removed_from_shaker.count(ingredient_to_move) < 1 or ingredient_to_move["amount"] is None):
+        removed_from_shaker.insert(0, ingredient_to_move)
     if(ingredient_to_move["amount_added"] < 1):
-        added_ingredients.remove(ingredient_to_move)
+        added_to_shaker.remove(ingredient_to_move)
 
-    print(available_ingredients)
-    print(added_ingredients)
+    print(removed_from_shaker)
+    print(added_to_shaker)
 
-    return jsonify(recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
+    return jsonify(recipe=selected_recipe, available_ingredients=removed_from_shaker, added_ingredients=added_to_shaker)
 
 if __name__ == '__main__':
    app.run(debug = True)

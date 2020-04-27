@@ -9,7 +9,7 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
     $.each(recipe["garnish_ingredients"], function(i, item){
         var list_item = $("<div>")
         $(list_item).addClass("list-item")
-        if((item.amount == item.amount_added) || (item.amount == null && added_ingredients.some(function(element){return element.id === item.id}))){
+        if((item.amount == item.amount_added) || (item.amount == null && added_ingredients.some(function(element){return element.quiz_id === item.quiz_id}))){
             $(list_item).addClass("completed-item")
         }
         if(item.unit == ""){
@@ -34,7 +34,7 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         $.each(available_ingredients, function(i, ingredient){
             var available_ingredient = $("<div>")
             $(available_ingredient).addClass("draggable-employee")
-            $(available_ingredient).attr("data-id", ingredient.id)
+            $(available_ingredient).attr("data-id", ingredient.quiz_id)
             if(ingredient.unit == ""){
                 $(available_ingredient).text(ingredient.ingredient)
             }
@@ -57,7 +57,7 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         console.log(added_ingredients)
         var added_ingredient = $("<div>")
         $(added_ingredient).addClass("draggable-committee")
-        $(added_ingredient).attr("data-id", ingredient.id)
+        $(added_ingredient).attr("data-id", ingredient.quiz_id)
         if(ingredient.unit == ""){
             $(added_ingredient).text(ingredient.ingredient)
         }
