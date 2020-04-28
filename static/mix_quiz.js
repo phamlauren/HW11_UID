@@ -7,37 +7,21 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
 
     $("#progress_bar").empty()
     $("#progress_bar").text("Progress: " + recipe["progress"] + "/" + recipe["until_complete"])
-
     $("#ppc-target").attr("data-id", recipe["id"])
-    $.each(recipe["mix_ingredients"], function(i, item){
-        var list_item = $("<div>")
-        $(list_item).addClass("list-item")
-        if((item.amount == item.amount_added) || (item.amount == null && added_ingredients.some(function(element){return element.quiz_id === item.quiz_id}))){
-            $(list_item).addClass("completed-item")
-        }
-        if(item.unit == ""){
-            $(list_item).text(item.ingredient)
-        }
-        else if(item.amount == null){
-            $(list_item).text(item.ingredient + "," + item.unit)
-        }
-        else{
-            $(list_item).text(item.ingredient + ", " + item.amount + item.unit)
-
-        }
-        $("#recipe-instructions").append(list_item)
-    })
  
     if(available_ingredients.length < 1){
         var success_message = $("<div>")
         $(success_message).text("Congratulations! You've successfully made a " + recipe["name"] + ".")
         $("#available-ingredients").append(success_message)
     }
+
     else{
         $.each(available_ingredients, function(i, ingredient){
             var available_ingredient = $("<div>")
             $(available_ingredient).addClass("draggable-employee")
             $(available_ingredient).attr("data-id", ingredient.quiz_id)
+            $(available_ingredient).attr("data-validity", ingredient.quiz_correct)
+            $(available_ingredient).attr("data-name", ingredient.ingredient)
             if(ingredient.unit == ""){
                 $(available_ingredient).text(ingredient.ingredient)
             }
@@ -61,6 +45,8 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         var added_ingredient = $("<div>")
         $(added_ingredient).addClass("draggable-committee")
         $(added_ingredient).attr("data-id", ingredient.quiz_id)
+        $(added_ingredient).attr("data-validity", ingredient.quiz_correct)
+        $(added_ingredient).attr("data-name", ingredient.ingredient)
         if(ingredient.unit == ""){
             $(added_ingredient).text(ingredient.ingredient)
         }
@@ -91,11 +77,17 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         accept: ".draggable-employee",
         drop: function(event, ui){
             var ingredient_id = ui.draggable.data("id")
-            var recipe_id = $("#ppc-target").attr("data-id")
-            console.log(ingredient_id)
-            console.log(recipe_id)
-            move_to_added_ingredients(ingredient_id, recipe_id)
-            $(ui.draggable).remove()
+            var ingredient_validity = ui.draggable.data("validity")
+            if(ingredient_validity == true){  
+                var recipe_id = $("#ppc-target").attr("data-id")
+                move_to_added_ingredients(ingredient_id, recipe_id)
+                $(ui.draggable).remove()
+            }
+            else{
+                var text = ui.draggable.data("name").toLowerCase()
+                $(ui.draggable).text("Oops! There is no " + text + " in this recipe.")
+                $(ui.draggable).addClass("wrong-item")
+            }
         }
     })
     $(".draggable-employee").draggable({
