@@ -29,8 +29,14 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
  
     if(available_ingredients.length < 1){
         var success_message = $("<div>")
-        $(success_message).text("Congratulations! You've successfully made a " + recipe["name"] + ".")
+        $(success_message).text("Congratulations! You've successfully made a " + recipe["name"] + ". Are you ready for a quiz?")
+        var yes_button = $("<button id=\"yes-button\" class=\"btn btn-primary\">")
+        $(yes_button).text("Yes, quiz me!")
+        var no_button = $("<button id=\"no-button\" class=\"btn btn-primary\">")
+        $(no_button).text("No, let me learn the recipe again.")
         $("#available-ingredients").append(success_message)
+        $("#available-ingredients").append(yes_button)
+        $("#available-ingredients").append(no_button)
     }
     else{
         $.each(available_ingredients, function(i, ingredient){
@@ -157,4 +163,12 @@ var move_to_available_ingredients = function(ingredient_id, recipe_id){
 
 $(document).ready(function(){
     display_lists(recipe, available_ingredients, added_ingredients)
+})
+
+$(document).on("click", "#yes-button", function(){
+    window.location.href = "http://127.0.0.1:5000/" + recipe["id"] + "/quiz"
+})
+
+$(document).on("click", "#no-button", function(){
+    window.location.href = "http://127.0.0.1:5000/" + recipe["id"]    
 })

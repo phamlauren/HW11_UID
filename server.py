@@ -55,6 +55,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 2,
@@ -105,6 +107,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 3,
@@ -155,6 +159,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 4,
@@ -205,6 +211,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 5,
@@ -248,6 +256,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 6,
@@ -291,6 +301,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 7,
@@ -341,6 +353,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 8,
@@ -377,6 +391,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 9,
@@ -427,6 +443,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 10,
@@ -470,6 +488,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 11,
@@ -562,6 +582,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 12,
@@ -619,6 +641,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 13,
@@ -662,6 +686,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 14,
@@ -719,6 +745,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
 
     {
@@ -777,6 +805,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 16,
@@ -834,6 +864,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 17,
@@ -884,6 +916,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 18,
@@ -934,6 +968,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 19,
@@ -984,6 +1020,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 20,
@@ -1027,6 +1065,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
     {
         "id": 21,
@@ -1098,6 +1138,8 @@ recipes = [
                 "amount_added": 0,
             },
         ],
+        "progress": 0,
+        "until_complete": 0,
     },
 ]
 
@@ -1213,6 +1255,14 @@ def quiz(recipe_id=None):
     added_to_shaker.clear()
 
     selected_recipe = recipes[int(recipe_id)-1]
+    counter=0
+    for ingredient in selected_recipe["mix_ingredients"]:
+        try:
+            counter=counter+ingredient["amount"]
+        except: 
+            counter = counter + 1
+    selected_recipe["until_complete"]=counter
+
     mix_in_recipe1 = recipes[int(random_recipe_id1)-1]
     mix_in_recipe2 = recipes[int(random_recipe_id2)-1]
 
@@ -1259,6 +1309,7 @@ def add_to_shaker(recipe_id=None):
     else:
         ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
         error_message = None
+        selected_recipe["progress"] = str(int(selected_recipe["progress"]) + 1)
         if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
             removed_from_shaker.remove(ingredient_to_move)
             i=1
@@ -1268,8 +1319,9 @@ def add_to_shaker(recipe_id=None):
         if(ingredient_to_move["amount_added"] < 2):
             added_to_shaker.insert(0, ingredient_to_move)
 
-    print(removed_from_shaker)
-    print(added_to_shaker)
+    print(selected_recipe)
+    # print(removed_from_shaker)
+    # print(added_to_shaker)
 
     return jsonify(error_message=error_message, recipe=selected_recipe, available_ingredients=removed_from_shaker, added_ingredients=added_to_shaker)
 

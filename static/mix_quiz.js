@@ -5,6 +5,9 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
     $("#added-ingredients").empty()
     //insert all new data
 
+    $("#progress_bar").empty()
+    $("#progress_bar").text("Progress: " + recipe["progress"] + "/" + recipe["until_complete"])
+
     $("#ppc-target").attr("data-id", recipe["id"])
     $.each(recipe["mix_ingredients"], function(i, item){
         var list_item = $("<div>")
