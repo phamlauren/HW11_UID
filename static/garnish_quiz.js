@@ -1,71 +1,43 @@
 var display_lists = function(recipe, available_ingredients, added_ingredients){
     //empty old data
-    $("#recipe-name").empty()
-    $("#recipe-instructions").empty()
     $("#available-ingredients").empty()
     $("#added-ingredients").empty()
     //insert all new data
 
-    $("#recipe-name").text(recipe["name"])
-    $("#recipe-name").attr("data-id", recipe["id"])
-    $.each(recipe["garnish_ingredients"], function(i, item){
-        var list_item = $("<div>")
-        $(list_item).addClass("list-item")
-        if((item.amount == item.amount_added) || (item.amount == null && added_ingredients.some(function(element){return element.id === item.id}))){
-            $(list_item).addClass("completed-item")
+    $("#progress_bar").empty()
+    $("#progress_bar").text("Progress: " + recipe["progress"] + "/" + recipe["until_complete"])
+    $("#ppc-target").attr("data-id", recipe["id"])
+
+    $.each(available_ingredients, function(i, ingredient){
+        var available_ingredient = $("<div>")
+        $(available_ingredient).addClass("draggable-employee")
+        $(available_ingredient).attr("data-id", ingredient.quiz_id)
+        $(available_ingredient).attr("data-validity", ingredient.quiz_correct)
+        $(available_ingredient).attr("data-name", ingredient.ingredient)
+        if(ingredient.unit == ""){
+            $(available_ingredient).text(ingredient.ingredient)
         }
-        if(item.unit == ""){
-            $(list_item).text(item.ingredient)
-        }
-        else if(item.amount == null){
-            $(list_item).text(item.ingredient + "," + item.unit)
+        else if(ingredient.amount == null){
+            $(available_ingredient).text(ingredient.ingredient + "," + ingredient.unit)
         }
         else{
-            $(list_item).text(item.ingredient + ", " + item.amount + item.unit)
-
+            $(available_ingredient).text(ingredient.ingredient + ", " + "1" + ingredient.unit)
         }
-        $("#recipe-instructions").append(list_item)
-    })
- 
-    if(available_ingredients.length < 1){
-        var success_message = $("<div>")
-        $(success_message).text("Congratulations! You've successfully made a " + recipe["name"] + ". Are you ready for a quiz?")
-        var yes_button = $("<button id=\"yes-button\" class=\"btn btn-primary\">")
-        $(yes_button).text("Yes, quiz me!")
-        var no_button = $("<button id=\"no-button\" class=\"btn btn-primary\">")
-        $(no_button).text("No, let me learn the recipe again.")
-        $("#available-ingredients").append(success_message)
-        $("#available-ingredients").append(yes_button)
-        $("#available-ingredients").append(no_button)
-    }
-    else{
-        $.each(available_ingredients, function(i, ingredient){
-            var available_ingredient = $("<div>")
-            $(available_ingredient).addClass("draggable-employee")
-            $(available_ingredient).attr("data-id", ingredient.id)
-            if(ingredient.unit == ""){
-                $(available_ingredient).text(ingredient.ingredient)
-            }
-            else if(ingredient.amount == null){
-                $(available_ingredient).text(ingredient.ingredient + "," + ingredient.unit)
-            }
-            else{
-                $(available_ingredient).text(ingredient.ingredient + ", " + "1" + ingredient.unit)
-            }
-            $(available_ingredient).hover(function(){
-                $(this).addClass("hover")
-            }, function(){
-                $(this).removeClass("hover")
-            })
-            $("#available-ingredients").append(available_ingredient)
+        $(available_ingredient).hover(function(){
+            $(this).addClass("hover")
+        }, function(){
+            $(this).removeClass("hover")
         })
-    }
+        $("#available-ingredients").append(available_ingredient)
+    })
 
     $.each(added_ingredients, function(i, ingredient){
         console.log(added_ingredients)
         var added_ingredient = $("<div>")
         $(added_ingredient).addClass("draggable-committee")
-        $(added_ingredient).attr("data-id", ingredient.id)
+        $(added_ingredient).attr("data-id", ingredient.quiz_id)
+        $(added_ingredient).attr("data-validity", ingredient.quiz_correct)
+        $(added_ingredient).attr("data-name", ingredient.ingredient)
         if(ingredient.unit == ""){
             $(added_ingredient).text(ingredient.ingredient)
         }
@@ -87,7 +59,7 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         accept: ".draggable-committee",
         drop: function(event, ui){
             var ingredient_id = ui.draggable.data("id")
-            var recipe_id = $("#recipe-name").data("id")
+            var recipe_id = $("#ppc-target").data("id")
             move_to_available_ingredients(ingredient_id, recipe_id)
             $(ui.draggable).remove()
         }
@@ -96,9 +68,17 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         accept: ".draggable-employee",
         drop: function(event, ui){
             var ingredient_id = ui.draggable.data("id")
-            var recipe_id = $("#recipe-name").attr("data-id")
-            move_to_added_ingredients(ingredient_id, recipe_id)
-            $(ui.draggable).remove()
+            var ingredient_validity = ui.draggable.data("validity")
+            if(ingredient_validity == true){  
+                var recipe_id = $("#ppc-target").attr("data-id")
+                move_to_added_ingredients(ingredient_id, recipe_id)
+                $(ui.draggable).remove()
+            }
+            else{
+                var text = ui.draggable.data("name").toLowerCase()
+                $(ui.draggable).text("Oops! There is no " + text + " in this recipe.")
+                $(ui.draggable).addClass("wrong-item")
+            }
         }
     })
     $(".draggable-employee").draggable({
@@ -119,7 +99,7 @@ var move_to_added_ingredients = function(ingredient_id, recipe_id){
     var data_to_save = {"ingredient_id": ingredient_id, "recipe_id": recipe_id} 
     $.ajax({
         type: "POST",
-        url: "move_to_added_garnishes",                
+        url: "add_to_glass",                
         dataType : "json",
         contentType: "application/json; charset=utf-8",
         data : JSON.stringify(data_to_save),
@@ -127,7 +107,22 @@ var move_to_added_ingredients = function(ingredient_id, recipe_id){
             var recipe = result["recipe"]
             var added_ingredients = result["added_ingredients"]
             var available_ingredients = result["available_ingredients"]
-            display_lists(recipe, available_ingredients, added_ingredients)
+            if(recipe["progress"] == recipe["until_complete"]){
+                display_lists(recipe, available_ingredients, added_ingredients)
+                $("#available-ingredients").empty()
+                $("#available-ingredients").text("Congratulations! You've successfully made a " + recipe["name"] + ".")
+                var yes_button = $("<button id=\"yes-button\" class=\"btn btn-primary\">")
+                $(yes_button).text("Let me find a new recipe!")
+                var no_button = $("<button id=\"no-button\" class=\"btn btn-primary\">")
+                $(no_button).text("I want to learn this recipe again.")
+                $("#available-ingredients").append(yes_button)
+                $("#available-ingredients").append(no_button)
+            }
+            else{            
+                var added_ingredients = result["added_ingredients"]
+                var available_ingredients = result["available_ingredients"]
+                display_lists(recipe, available_ingredients, added_ingredients)
+            }
         },
         error: function(request, status, error){
             console.log("Error");
@@ -142,7 +137,7 @@ var move_to_available_ingredients = function(ingredient_id, recipe_id){
     var data_to_save = {"ingredient_id": ingredient_id, "recipe_id": recipe_id}         
     $.ajax({
         type: "POST",
-        url: "move_to_available_garnishes",                
+        url: "remove_from_glass",                
         dataType : "json",
         contentType: "application/json; charset=utf-8",
         data : JSON.stringify(data_to_save),
@@ -166,7 +161,7 @@ $(document).ready(function(){
 })
 
 $(document).on("click", "#yes-button", function(){
-    window.location.href = "http://127.0.0.1:5000/" + recipe["id"] + "/quiz_mix"
+    window.location.href = "http://127.0.0.1:5000/recipe_list"
 })
 
 $(document).on("click", "#no-button", function(){

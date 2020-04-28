@@ -1152,6 +1152,13 @@ added_garnishes = []
 removed_from_shaker = []
 added_to_shaker = []
 
+removed_from_glass = []
+added_to_glass = []
+
+@app.route('/recipe_list')
+def display_recipes():
+    return render_template('recipe_list.html', recipes=recipes)
+
 @app.route('/<recipe_id>')
 def recipe(recipe_id=None):
     available_ingredients.clear()
@@ -1246,8 +1253,8 @@ def move_to_available_garnishes(recipe_id=None):
 
     return jsonify(recipe=selected_recipe, available_ingredients=available_garnishes, added_ingredients=added_garnishes)
 
-@app.route('/<recipe_id>/quiz')
-def quiz(recipe_id=None):
+@app.route('/<recipe_id>/quiz_mix')
+def quiz_recipe(recipe_id=None):
     random_recipe_id1 = random.randint(1, 21)
     random_recipe_id2 = random.randint(1, 21)
 
@@ -1304,26 +1311,18 @@ def add_to_shaker(recipe_id=None):
     selected_recipe = recipes[int(recipe_id)-1]
     ingredient_to_move = removed_from_shaker[int(ingredient_id)-1]
 
-    if ingredient_to_move["quiz_correct"] is False:
-        error_message = "Oops! The recipe for a " + selected_recipe["name"] + " doesn't call for any " + ingredient_to_move["ingredient"].lower() + ". Try again!"
-    else:
-        ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
-        error_message = None
-        selected_recipe["progress"] = str(int(selected_recipe["progress"]) + 1)
-        if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
-            removed_from_shaker.remove(ingredient_to_move)
-            i=1
-            for ingredient in removed_from_shaker:
-                ingredient["quiz_id"] = i
-                i = i + 1
-        if(ingredient_to_move["amount_added"] < 2):
-            added_to_shaker.insert(0, ingredient_to_move)
+    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
+    selected_recipe["progress"] = str(int(selected_recipe["progress"]) + 1)
+    if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
+        removed_from_shaker.remove(ingredient_to_move)
+        i=1
+        for ingredient in removed_from_shaker:
+            ingredient["quiz_id"] = i
+            i = i + 1
+    if(ingredient_to_move["amount_added"] < 2):
+        added_to_shaker.insert(0, ingredient_to_move)
 
-    print(selected_recipe)
-    # print(removed_from_shaker)
-    # print(added_to_shaker)
-
-    return jsonify(error_message=error_message, recipe=selected_recipe, available_ingredients=removed_from_shaker, added_ingredients=added_to_shaker)
+    return jsonify(recipe=selected_recipe, available_ingredients=removed_from_shaker, added_ingredients=added_to_shaker)
 
 @app.route('/<recipe_id>/remove_from_shaker', methods=['GET', 'POST'])
 def remove_from_shaker(recipe_id=None):
@@ -1344,6 +1343,76 @@ def remove_from_shaker(recipe_id=None):
     print(added_to_shaker)
 
     return jsonify(recipe=selected_recipe, available_ingredients=removed_from_shaker, added_ingredients=added_to_shaker)
+
+@app.route('/<recipe_id>/quiz_garnish')
+def quiz_garnish(recipe_id=None):
+    random_recipe_id1 = random.randint(1, 21)
+    random_recipe_id2 = random.randint(1, 21)
+
+    removed_from_glass.clear()
+    added_to_glass.clear()
+
+    selected_recipe = recipes[int(recipe_id)-1]
+    counter=0
+    for ingredient in selected_recipe["garnish_ingredients"]:
+        try:
+            counter=counter+ingredient["amount"]
+        except: 
+            counter = counter + 1
+    selected_recipe["until_complete"]=counter
+    selected_recipe["progress"]=0
+
+    mix_in_recipe1 = recipes[int(random_recipe_id1)-1]
+    mix_in_recipe2 = recipes[int(random_recipe_id2)-1]
+
+    temp_list = []
+
+    for ingredient in selected_recipe["garnish_ingredients"]:
+        ingredient["amount_added"] = 0
+        ingredient["quiz_correct"] = True
+        removed_from_glass.append(ingredient)
+        temp_list.append(ingredient["ingredient"])
+    for ingredient in mix_in_recipe1["garnish_ingredients"]:
+        if ingredient["ingredient"] not in temp_list:
+            ingredient["amount_added"] = 0
+            ingredient["quiz_correct"] = False
+            removed_from_glass.append(ingredient)
+    for ingredient in mix_in_recipe2["garnish_ingredients"]:
+        if ingredient["ingredient"] not in temp_list:
+            ingredient["amount_added"] = 0
+            ingredient["quiz_correct"] = False
+            removed_from_glass.append(ingredient)
+
+    # print(temp_list)
+    shuffle(removed_from_glass)
+    i=1
+    for ingredient in removed_from_glass:
+        ingredient["quiz_id"] = i
+        i = i + 1
+
+    return render_template('garnish_quiz.html', recipe=selected_recipe, available_ingredients=removed_from_glass, added_ingredients=added_to_glass)
+
+@app.route('/<recipe_id>/add_to_glass', methods=['GET', 'POST'])
+def add_to_glass(recipe_id=None):
+    json_data = request.get_json()   
+    recipe_id = json_data["recipe_id"]
+    ingredient_id = json_data["ingredient_id"] # receives QUIZ ID, not regular ID
+
+    selected_recipe = recipes[int(recipe_id)-1]
+    ingredient_to_move = removed_from_glass[int(ingredient_id)-1]
+
+    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
+    selected_recipe["progress"] = str(int(selected_recipe["progress"]) + 1)
+    if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
+        removed_from_glass.remove(ingredient_to_move)
+        i=1
+        for ingredient in removed_from_glass:
+            ingredient["quiz_id"] = i
+            i = i + 1
+    if(ingredient_to_move["amount_added"] < 2):
+        added_to_glass.insert(0, ingredient_to_move)
+
+    return jsonify(recipe=selected_recipe, available_ingredients=removed_from_glass, added_ingredients=added_to_glass)
 
 if __name__ == '__main__':
    app.run(debug = True)
