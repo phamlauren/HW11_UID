@@ -1159,21 +1159,27 @@ added_to_glass = []
 def display_recipes():
     return render_template('recipe_list.html', recipes=recipes)
 
-@app.route('/<recipe_id>')
+@app.route('/<int:recipe_id>')
 def recipe(recipe_id=None):
     available_ingredients.clear()
     added_ingredients.clear()
 
-    selected_recipe = recipes[int(recipe_id)-1]
+    selected_recipe = recipes[recipe_id-1]
     for ingredient in selected_recipe["mix_ingredients"]:
         ingredient["amount_added"] = 0
         available_ingredients.append(ingredient)
+
+    print(available_ingredients)
+    print(added_ingredients)
    
     return render_template('mix_recipe.html', recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
 
 
 @app.route('/move_to_added_ingredients', methods=['GET', 'POST'])
 def move_to_added_ingredients():
+    print(available_ingredients)
+    print(added_ingredients)
+
     json_data = request.get_json()   
     recipe_id = json_data["recipe_id"]
     ingredient_id = json_data["ingredient_id"]
@@ -1186,6 +1192,9 @@ def move_to_added_ingredients():
         available_ingredients.remove(ingredient_to_move)
     if(ingredient_to_move["amount_added"] < 2):
         added_ingredients.insert(0, ingredient_to_move)
+
+    print(available_ingredients)
+    print(added_ingredients)
 
     return jsonify(recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
 
@@ -1206,12 +1215,12 @@ def move_to_available_ingredients():
 
     return jsonify(recipe=selected_recipe, available_ingredients=available_ingredients, added_ingredients=added_ingredients)
 
-@app.route('/<recipe_id>/garnish')
+@app.route('/<int:recipe_id>/garnish')
 def garnish(recipe_id=None):
     available_garnishes.clear()
     added_garnishes.clear()
 
-    selected_recipe = recipes[int(recipe_id)-1]
+    selected_recipe = recipes[recipe_id-1]
     for ingredient in selected_recipe["garnish_ingredients"]:
         ingredient["amount_added"] = 0
         available_garnishes.append(ingredient)
@@ -1253,7 +1262,7 @@ def move_to_available_garnishes(recipe_id=None):
 
     return jsonify(recipe=selected_recipe, available_ingredients=available_garnishes, added_ingredients=added_garnishes)
 
-@app.route('/<recipe_id>/quiz_mix')
+@app.route('/<int:recipe_id>/quiz_mix')
 def quiz_recipe(recipe_id=None):
     random_recipe_id1 = random.randint(1, 21)
     random_recipe_id2 = random.randint(1, 21)
@@ -1261,7 +1270,7 @@ def quiz_recipe(recipe_id=None):
     removed_from_shaker.clear()
     added_to_shaker.clear()
 
-    selected_recipe = recipes[int(recipe_id)-1]
+    selected_recipe = recipes[recipe_id-1]
     counter=0
     for ingredient in selected_recipe["mix_ingredients"]:
         try:
@@ -1366,7 +1375,7 @@ def remove_from_shaker(recipe_id=None):
 
     return jsonify(recipe=selected_recipe, available_ingredients=removed_from_shaker, added_ingredients=added_to_shaker)
 
-@app.route('/<recipe_id>/quiz_garnish')
+@app.route('/<int:recipe_id>/quiz_garnish')
 def quiz_garnish(recipe_id=None):
     random_recipe_id1 = random.randint(1, 21)
     random_recipe_id2 = random.randint(1, 21)
@@ -1374,7 +1383,7 @@ def quiz_garnish(recipe_id=None):
     removed_from_glass.clear()
     added_to_glass.clear()
 
-    selected_recipe = recipes[int(recipe_id)-1]
+    selected_recipe = recipes[recipe_id-1]
     counter=0
     for ingredient in selected_recipe["garnish_ingredients"]:
         try:
