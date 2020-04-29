@@ -1309,18 +1309,28 @@ def add_to_shaker(recipe_id=None):
     ingredient_id = json_data["ingredient_id"] # receives QUIZ ID, not regular ID
 
     selected_recipe = recipes[int(recipe_id)-1]
-    ingredient_to_move = removed_from_shaker[int(ingredient_id)-1]
+    for ingredient in removed_from_shaker:
+        if ingredient["quiz_id"] == int(ingredient_id):
+            ingredient_to_move = ingredient
 
-    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
-    selected_recipe["progress"] = str(int(selected_recipe["progress"]) + 1)
-    if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
+    if ingredient_to_move["quiz_correct"]:
+        selected_recipe["progress"] = str(int(selected_recipe["progress"]) + 1)
+        ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
+        if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
+            removed_from_shaker.remove(ingredient_to_move)
+        if(ingredient_to_move["amount_added"] == 1):
+            added_to_shaker.insert(0, ingredient_to_move)
+
+        print(removed_from_shaker)
+        print(added_to_shaker)
+    
+    else:
+        selected_recipe["progress"] = str(int(selected_recipe["progress"]) - 1)
         removed_from_shaker.remove(ingredient_to_move)
-        i=1
-        for ingredient in removed_from_shaker:
-            ingredient["quiz_id"] = i
-            i = i + 1
-    if(ingredient_to_move["amount_added"] < 2):
         added_to_shaker.insert(0, ingredient_to_move)
+
+        print(removed_from_shaker)
+        print(added_to_shaker)
 
     return jsonify(recipe=selected_recipe, available_ingredients=removed_from_shaker, added_ingredients=added_to_shaker)
 
@@ -1331,16 +1341,28 @@ def remove_from_shaker(recipe_id=None):
     ingredient_id = json_data["ingredient_id"]
 
     selected_recipe = recipes[int(recipe_id)-1]
-    ingredient_to_move = selected_recipe["mix_ingredients"][int(ingredient_id)-1]
-    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] - 1
+    for ingredient in added_to_shaker:
+        if ingredient["quiz_id"] == int(ingredient_id):
+            ingredient_to_move = ingredient
+    
+    if ingredient_to_move["quiz_correct"]:
+        selected_recipe["progress"] = str(int(selected_recipe["progress"]) - 1)
+        ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
+        if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
+            added_to_shaker.remove(ingredient_to_move)
+        if(ingredient_to_move["amount_added"] == 1):
+            removed_from_shaker.insert(0, ingredient_to_move)
 
-    if(removed_from_shaker.count(ingredient_to_move) < 1 or ingredient_to_move["amount"] is None):
-        removed_from_shaker.insert(0, ingredient_to_move)
-    if(ingredient_to_move["amount_added"] < 1):
+        print(removed_from_shaker)
+        print(added_to_shaker)
+    
+    else:
+        selected_recipe["progress"] = str(int(selected_recipe["progress"]) + 1)
         added_to_shaker.remove(ingredient_to_move)
+        removed_from_shaker.insert(0, ingredient_to_move)
 
-    print(removed_from_shaker)
-    print(added_to_shaker)
+        print(removed_from_shaker)
+        print(added_to_shaker)
 
     return jsonify(recipe=selected_recipe, available_ingredients=removed_from_shaker, added_ingredients=added_to_shaker)
 
