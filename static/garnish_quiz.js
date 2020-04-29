@@ -32,13 +32,16 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
     })
 
     $.each(added_ingredients, function(i, ingredient){
-        console.log(added_ingredients)
         var added_ingredient = $("<div>")
         $(added_ingredient).addClass("draggable-committee")
         $(added_ingredient).attr("data-id", ingredient.quiz_id)
         $(added_ingredient).attr("data-validity", ingredient.quiz_correct)
         $(added_ingredient).attr("data-name", ingredient.ingredient)
-        if(ingredient.unit == ""){
+        if(ingredient.quiz_correct == false){
+            $(added_ingredient).text("Oops! There is no " + ingredient.ingredient.toLowerCase() + " in this recipe.")
+
+        }
+        else if(ingredient.unit == ""){
             $(added_ingredient).text(ingredient.ingredient)
         }
         else if(ingredient.amount == null){
@@ -59,7 +62,7 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         accept: ".draggable-committee",
         drop: function(event, ui){
             var ingredient_id = ui.draggable.data("id")
-            var recipe_id = $("#ppc-target").data("id")
+            var recipe_id = $("#ppc-target").attr("data-id")
             move_to_available_ingredients(ingredient_id, recipe_id)
             $(ui.draggable).remove()
         }
@@ -68,17 +71,9 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         accept: ".draggable-employee",
         drop: function(event, ui){
             var ingredient_id = ui.draggable.data("id")
-            var ingredient_validity = ui.draggable.data("validity")
-            if(ingredient_validity == true){  
-                var recipe_id = $("#ppc-target").attr("data-id")
-                move_to_added_ingredients(ingredient_id, recipe_id)
-                $(ui.draggable).remove()
-            }
-            else{
-                var text = ui.draggable.data("name").toLowerCase()
-                $(ui.draggable).text("Oops! There is no " + text + " in this recipe.")
-                $(ui.draggable).addClass("wrong-item")
-            }
+            var recipe_id = $("#ppc-target").attr("data-id")
+            move_to_added_ingredients(ingredient_id, recipe_id)
+            $(ui.draggable).remove()
         }
     })
     $(".draggable-employee").draggable({

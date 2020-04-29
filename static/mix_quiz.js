@@ -1,6 +1,5 @@
 var display_lists = function(recipe, available_ingredients, added_ingredients){
     //empty old data
-    $("#recipe-instructions").empty()
     $("#available-ingredients").empty()
     $("#added-ingredients").empty()
     //insert all new data
@@ -8,46 +7,39 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
     $("#progress_bar").empty()
     $("#progress_bar").text("Progress: " + recipe["progress"] + "/" + recipe["until_complete"])
     $("#ppc-target").attr("data-id", recipe["id"])
- 
-    if(available_ingredients.length < 1){
-        var success_message = $("<div>")
-        $(success_message).text("Congratulations! You've successfully made a " + recipe["name"] + ".")
-        $("#available-ingredients").append(success_message)
-    }
 
-    else{
-        $.each(available_ingredients, function(i, ingredient){
-            var available_ingredient = $("<div>")
-            $(available_ingredient).addClass("draggable-employee")
-            $(available_ingredient).attr("data-id", ingredient.quiz_id)
-            $(available_ingredient).attr("data-validity", ingredient.quiz_correct)
-            $(available_ingredient).attr("data-name", ingredient.ingredient)
-            if(ingredient.unit == ""){
-                $(available_ingredient).text(ingredient.ingredient)
-            }
-            else if(ingredient.amount == null){
-                $(available_ingredient).text(ingredient.ingredient + "," + ingredient.unit)
-            }
-            else{
-                $(available_ingredient).text(ingredient.ingredient + ", " + "1" + ingredient.unit)
-            }
-            $(available_ingredient).hover(function(){
-                $(this).addClass("hover")
-            }, function(){
-                $(this).removeClass("hover")
-            })
-            $("#available-ingredients").append(available_ingredient)
+    $.each(available_ingredients, function(i, ingredient){
+        var available_ingredient = $("<div>")
+        $(available_ingredient).addClass("draggable-employee")
+        $(available_ingredient).attr("data-id", ingredient.quiz_id)
+        $(available_ingredient).attr("data-validity", ingredient.quiz_correct)
+        $(available_ingredient).attr("data-name", ingredient.ingredient)
+        if(ingredient.unit == ""){
+            $(available_ingredient).text(ingredient.ingredient)
+        }
+        else if(ingredient.amount == null){
+            $(available_ingredient).text(ingredient.ingredient + "," + ingredient.unit)
+        }
+        else{
+            $(available_ingredient).text(ingredient.ingredient + ", " + "1" + ingredient.unit)
+        }
+        $(available_ingredient).hover(function(){
+            $(this).addClass("hover")
+        }, function(){
+            $(this).removeClass("hover")
         })
-    }
+        $("#available-ingredients").append(available_ingredient)
+    })
 
     $.each(added_ingredients, function(i, ingredient){
-        console.log(added_ingredients)
         var added_ingredient = $("<div>")
         $(added_ingredient).addClass("draggable-committee")
         $(added_ingredient).attr("data-id", ingredient.quiz_id)
-        $(added_ingredient).attr("data-validity", ingredient.quiz_correct)
         $(added_ingredient).attr("data-name", ingredient.ingredient)
-        if(ingredient.unit == ""){
+        if(ingredient.quiz_correct == false){
+            $(added_ingredient).text("Oops! There is no " + ingredient.ingredient.toLowerCase() + " in this recipe.")
+        }
+        else if(ingredient.unit == ""){
             $(added_ingredient).text(ingredient.ingredient)
         }
         else if(ingredient.amount == null){
@@ -68,7 +60,7 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         accept: ".draggable-committee",
         drop: function(event, ui){
             var ingredient_id = ui.draggable.data("id")
-            var recipe_id = $("#ppc-target").data("id")
+            var recipe_id = $("#ppc-target").attr("data-id")
             move_to_available_ingredients(ingredient_id, recipe_id)
             $(ui.draggable).remove()
         }
@@ -77,17 +69,9 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         accept: ".draggable-employee",
         drop: function(event, ui){
             var ingredient_id = ui.draggable.data("id")
-            var ingredient_validity = ui.draggable.data("validity")
-            if(ingredient_validity == true){  
-                var recipe_id = $("#ppc-target").attr("data-id")
-                move_to_added_ingredients(ingredient_id, recipe_id)
-                $(ui.draggable).remove()
-            }
-            else{
-                var text = ui.draggable.data("name").toLowerCase()
-                $(ui.draggable).text("Oops! There is no " + text + " in this recipe.")
-                $(ui.draggable).addClass("wrong-item")
-            }
+            var recipe_id = $("#ppc-target").attr("data-id")
+            move_to_added_ingredients(ingredient_id, recipe_id)
+            $(ui.draggable).remove()
         }
     })
     $(".draggable-employee").draggable({
@@ -114,8 +98,6 @@ var move_to_added_ingredients = function(ingredient_id, recipe_id){
         data : JSON.stringify(data_to_save),
         success: function(result){
             var recipe = result["recipe"]
-            console.log(recipe["progress"])
-            console.log(recipe["until_complete"])
             if(recipe["progress"] == recipe["until_complete"]){
                 window.location.href = "http://127.0.0.1:5000/" + recipe["id"] + "/quiz_garnish"
             }
