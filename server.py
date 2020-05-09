@@ -9,6 +9,7 @@ recipes = [
     {
         "id": 1,
         "name": "Whiskey Sour",
+        "media": "https://s3.amazonaws.com/commonwealthcocktailsimages/whiskey_sour.png", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -16,6 +17,7 @@ recipes = [
                 "amount": 2, # 2 cups
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -23,6 +25,7 @@ recipes = [
                 "amount": 2, # 2 oz
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -30,6 +33,7 @@ recipes = [
                 "amount": 3, # 3 x (1/4 oz)
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -37,6 +41,7 @@ recipes = [
                 "amount": 3, # 3 x (/4 oz)
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -46,6 +51,7 @@ recipes = [
                 "amount": 1, # 1 x (1/2 wheel)
                 "unit": " half wheel",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -53,6 +59,7 @@ recipes = [
                 "amount": 1, # 1 cherry
                 "unit": "",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -61,6 +68,7 @@ recipes = [
     {
         "id": 2,
         "name": "Margarita",
+        "media": "https://www.patrontequila.com/binaries/largeretina/content/gallery/patrontequila/recipes/roca-patron-reposado/tommys-margarita/tommy-marg.jpg", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -68,6 +76,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -75,6 +84,7 @@ recipes = [
                 "amount": 1, 
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -82,6 +92,7 @@ recipes = [
                 "amount": 1, 
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -91,6 +102,7 @@ recipes = [
                 "amount": None,
                 "unit": " around glass rim",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -98,6 +110,7 @@ recipes = [
                 "amount": None,
                 "unit": " pour mixed ingredients over",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -105,6 +118,7 @@ recipes = [
                 "amount": 1,
                 "unit": " wheel",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -113,6 +127,7 @@ recipes = [
     {
         "id": 3,
         "name": "Cosmopolitan",
+        "media": "https://i.pinimg.com/originals/7d/54/74/7d547450ee5fdcd471922b1c5d37203e.jpg", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -120,6 +135,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -127,6 +143,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/2 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -134,6 +151,7 @@ recipes = [
                 "amount": 1, 
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -141,6 +159,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/2 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 5,
@@ -148,6 +167,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -157,6 +177,7 @@ recipes = [
                 "amount": 1,
                 "unit": " wheel",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -165,6 +186,7 @@ recipes = [
     {
         "id": 4,
         "name": "Mojito",
+        "media": "https://assets.bonappetit.com/photos/57acc0be1b33404414975167/master/pass/mojito.jpg", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -172,6 +194,7 @@ recipes = [
                 "amount": 3, 
                 "unit": " leaves",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -179,6 +202,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cups",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -186,6 +210,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -193,6 +218,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 5,
@@ -200,6 +226,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/2 oz",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -209,6 +236,7 @@ recipes = [
                 "amount": None,
                 "unit": "",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -217,6 +245,7 @@ recipes = [
     {
         "id": 5,
         "name": "Gimlet",
+        "media": "https://www.titosvodka.com/uploads/Recipes/Cocktails-White-Background/_auto1000/Titos-Vodka-Gimlet-W.jpg", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -224,6 +253,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -231,6 +261,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -238,6 +269,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -245,6 +277,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -254,6 +287,7 @@ recipes = [
                 "amount": 1,
                 "unit": " wheel",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -262,6 +296,7 @@ recipes = [
     {
         "id": 6,
         "name": "Sidecar",
+        "media": "https://i.pinimg.com/600x315/84/cb/c9/84cbc9ceaf87ac9a17d4020cb7cfaca0.jpg", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -269,6 +304,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -276,6 +312,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -283,6 +320,7 @@ recipes = [
                 "amount": 1, 
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -290,6 +328,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -299,6 +338,7 @@ recipes = [
                 "amount": None,
                 "unit": " around glass rim",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -307,6 +347,7 @@ recipes = [
     {
         "id": 7,
         "name": "French 75",
+        "media": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2011/11/15/0/FNM_120111-Centerfold-002_s4x3.jpg.rend.hgtvcom.616.462.suffix/1371600652446.jpeg", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -314,6 +355,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -321,6 +363,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -328,6 +371,7 @@ recipes = [
                 "amount": 2,
                 "unit": " dash",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -335,6 +379,7 @@ recipes = [
                 "amount": 1,
                 "unit": "/2 oz",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -344,6 +389,7 @@ recipes = [
                 "amount": None,
                 "unit": " to glass fill",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -351,6 +397,7 @@ recipes = [
                 "amount": 1,
                 "unit": " wheel",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -359,6 +406,7 @@ recipes = [
     {
         "id": 8,
         "name": "Daiquiri",
+        "media": "https://www.my-vb.com/sites/default/files/styles/image_recette/public/ebiz/Daiquiri%20Gimlet.jpg?itok=q90SMAsa", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -366,6 +414,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -373,6 +422,7 @@ recipes = [
                 "amount": 2,
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -380,6 +430,7 @@ recipes = [
                 "amount": 1,
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -389,6 +440,7 @@ recipes = [
                 "amount": 1,
                 "unit": " wheel",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -397,6 +449,7 @@ recipes = [
     {
         "id": 9,
         "name": "Espresso Martini",
+        "media": "https://shake-that.com/wp-content/uploads/2015/07/Espresso-martini.jpg", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -404,6 +457,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -411,6 +465,7 @@ recipes = [
                 "amount": 1,
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -418,6 +473,7 @@ recipes = [
                 "amount": 1,
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -425,6 +481,7 @@ recipes = [
                 "amount": 1,
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 5,
@@ -432,6 +489,7 @@ recipes = [
                 "amount": 1,
                 "unit": " teaspoon",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -441,6 +499,7 @@ recipes = [
                 "amount": None,
                 "unit": "",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -449,6 +508,7 @@ recipes = [
     {
         "id": 10,
         "name": "Negroni",
+        "media": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2017/1/18/4/FNM030117_Classic-Negroni_s4x3.jpg.rend.hgtvcom.616.462.suffix/1484859730499.jpeg", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -456,6 +516,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -463,6 +524,7 @@ recipes = [
                 "amount": 1,
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -470,6 +532,7 @@ recipes = [
                 "amount": 1,
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -477,6 +540,7 @@ recipes = [
                 "amount": 1,
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -486,6 +550,7 @@ recipes = [
                 "amount": 1,
                 "unit": " wheel",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -494,6 +559,7 @@ recipes = [
     {
         "id": 11,
         "name": "Bloody Mary",
+        "media": "https://www.monin.com/us/media/catalog/product/cache/9a4060007a6b38763b086819271c5c8a/H/o/Hot_Caribbean_Bloody_Mary-1534124666-0.png", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -501,6 +567,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -508,6 +575,7 @@ recipes = [
                 "amount": 2,
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -515,6 +583,7 @@ recipes = [
                 "amount": 1,
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -522,6 +591,7 @@ recipes = [
                 "amount": 1,
                 "unit": " tablespoon",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 5,
@@ -529,6 +599,7 @@ recipes = [
                 "amount": 3,
                 "unit": "/2 teaspoon",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 6,
@@ -536,6 +607,7 @@ recipes = [
                 "amount": 3,
                 "unit": "/4 teaspoon",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 7,
@@ -543,6 +615,7 @@ recipes = [
                 "amount": 1,
                 "unit": "/2 teaspoon",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 8,
@@ -550,6 +623,7 @@ recipes = [
                 "amount": 1,
                 "unit": "/8 teaspoon",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 9,
@@ -557,6 +631,7 @@ recipes = [
                 "amount": 1,
                 "unit": "/8 teaspoon",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 10,
@@ -564,6 +639,7 @@ recipes = [
                 "amount": 1,
                 "unit": "/8 teaspoon",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -573,6 +649,7 @@ recipes = [
                 "amount": 1,
                 "unit": " stalk",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -580,6 +657,7 @@ recipes = [
                 "amount": 1,
                 "unit": " wheel",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -588,6 +666,7 @@ recipes = [
     {
         "id": 12,
         "name": "Mai Tai",
+        "media": "https://us.inshaker.com/uploads/cocktail/promo/552/1542205346-Golden-Mai-Tai-_promo.jpg", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -595,6 +674,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -602,6 +682,7 @@ recipes = [
                 "amount": 2,
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -609,6 +690,7 @@ recipes = [
                 "amount": 3,
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -616,6 +698,7 @@ recipes = [
                 "amount": 1,
                 "unit": "/2 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 5,
@@ -623,6 +706,7 @@ recipes = [
                 "amount": 1,
                 "unit": " teaspoon",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 6,
@@ -630,6 +714,7 @@ recipes = [
                 "amount": 1,
                 "unit": " teaspoon",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -639,7 +724,16 @@ recipes = [
                 "amount": 1,
                 "unit": " half wheel",
                 "amount_added": 0,
+                "media": "",
             },
+            {
+                "id": 2,
+                "ingredient": "Mint",
+                "amount": None,
+                "unit": " leaves",
+                "amount_added": 0,
+                "media": "",
+            }
         ],
         "progress": 0,
         "until_complete": 0,
@@ -647,6 +741,7 @@ recipes = [
     {
         "id": 13,
         "name": "Gin fizz",
+        "media": "https://s3.amazonaws.com/commonwealthcocktailsimages/uGledHgmIVXDY4DB_d-rAA==-Ramos-Gin-Fizz-IBA-commonwealth-cocktails.png", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -654,6 +749,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -661,6 +757,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/2 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -668,6 +765,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -675,6 +773,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -684,7 +783,24 @@ recipes = [
                 "amount": 4,
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
+            {
+                "id": 2,
+                "ingredient": "Lemon",
+                "amount": 1,
+                "unit": " half wheel",
+                "amount_added": 0,
+                "media": "",
+            },
+            {
+                "id": 3,
+                "ingredient": "Mint",
+                "amount": None,
+                "unit": " leaves",
+                "amount_added": 0,
+                "media": "",
+            }
         ],
         "progress": 0,
         "until_complete": 0,
@@ -692,6 +808,7 @@ recipes = [
     {
         "id": 14,
         "name": "Planters' Punch",
+        "media": "http://shake-that.com/wp-content/uploads/2015/07/Planters-Punch-780x780.png", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -699,6 +816,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -706,6 +824,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/2 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -713,6 +832,7 @@ recipes = [
                 "amount": 5, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -720,6 +840,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 5,
@@ -727,6 +848,7 @@ recipes = [
                 "amount": None, 
                 "unit": " a few dashes",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -736,6 +858,7 @@ recipes = [
                 "amount": None,
                 "unit": " to glass fill",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -743,6 +866,15 @@ recipes = [
                 "amount": None, 
                 "unit": "",
                 "amount_added": 0,
+                "media": "",
+            },
+            {
+                "id": 3,
+                "ingredient": "Orange",
+                "amount": 1,
+                "unit": " wheel",
+                "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -752,6 +884,7 @@ recipes = [
     {
         "id": 15,
         "name": "Singapore Sling",
+        "media": "https://www.kitchengeekery.com/images/uploads/cocktails/_watermark/singapore-sling.jpg", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -759,6 +892,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -766,6 +900,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/2 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -773,6 +908,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -780,6 +916,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 5,
@@ -787,6 +924,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 6,
@@ -794,6 +932,7 @@ recipes = [
                 "amount": None, 
                 "unit": " dash",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -803,6 +942,23 @@ recipes = [
                 "amount": None,
                 "unit": " to glass fill",
                 "amount_added": 0,
+                "media": "",
+            },
+            {
+                "id": 2,
+                "ingredient": "Cherries",
+                "amount": None, 
+                "unit": "",
+                "amount_added": 0,
+                "media": "",
+            },
+            {
+                "id": 3,
+                "ingredient": "Orange",
+                "amount": 1,
+                "unit": " wheel",
+                "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -811,6 +967,7 @@ recipes = [
     {
         "id": 16,
         "name": "Floridian",
+        "media": "http://www.completecocktails.com/img/d/l/TheFloridian.png", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -818,6 +975,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -825,6 +983,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -832,6 +991,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -839,6 +999,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 5,
@@ -846,6 +1007,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 6,
@@ -853,6 +1015,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " splashes",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -862,6 +1025,7 @@ recipes = [
                 "amount": 2,
                 "unit": " twist",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -870,6 +1034,7 @@ recipes = [
     {
         "id": 17,
         "name": "Lemon-Tini",
+        "media": "https://lh3.googleusercontent.com/proxy/AJ8nwu1XaXun0pboNvoa5x-qCvj8A4xphxkwI5c8Zf5DVcy9lZXglXxaHEFYdj0D5TLlCZPA-5INU5wsmwOuziKxf9yGzftjiFfq0-JEZWa92fT2Mmw_h9vHOskLrL4xyvxxQ9v6QQ", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -877,6 +1042,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -884,6 +1050,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/2 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -891,6 +1058,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -898,6 +1066,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 5,
@@ -905,6 +1074,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -914,6 +1084,7 @@ recipes = [
                 "amount": 1,
                 "unit": "",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -922,6 +1093,7 @@ recipes = [
     {
         "id": 18,
         "name": "Aviation",
+        "media": "https://www.diageobaracademy.com/uploads/photos/cc7c3e436af3079a48e3703e01cfcae1.jpg", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -929,6 +1101,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -936,6 +1109,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -943,6 +1117,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -950,6 +1125,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 5,
@@ -957,6 +1133,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/2 oz",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -966,6 +1143,7 @@ recipes = [
                 "amount": 1,
                 "unit": "",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -974,6 +1152,7 @@ recipes = [
     {
         "id": 19,
         "name": "White Lady",
+        "media": "https://shake-that.com/wp-content/uploads/2015/07/White-Lady.jpg", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -981,6 +1160,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -988,6 +1168,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -995,6 +1176,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/2 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -1002,6 +1184,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/2 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 5,
@@ -1009,6 +1192,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -1026,6 +1210,7 @@ recipes = [
     {
         "id": 20,
         "name": "Bee's Knees",
+        "media": "https://www.agalima.com/wp-content/uploads/sites/6/2018/02/BeesKnees_430.png", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -1033,6 +1218,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -1040,6 +1226,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -1047,6 +1234,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -1054,15 +1242,17 @@ recipes = [
                 "amount": 3, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
             {
                 "id": 1,
-                "ingredient": "",
+                "ingredient": "Lemon",
                 "amount": 0,
-                "unit": "",
+                "unit": " peel",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -1071,6 +1261,7 @@ recipes = [
     {
         "id": 21,
         "name": "Blue Hawaii",
+        "media": "https://kinkybeverages.com/wp-content/uploads/2018/04/Recipe-Aloha-BlueHawaiian.jpg", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -1078,6 +1269,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " cup",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -1085,6 +1277,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -1092,6 +1285,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 4,
@@ -1099,6 +1293,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "/2 oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 5,
@@ -1106,6 +1301,7 @@ recipes = [
                 "amount": 2, 
                 "unit": " oz",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 6,
@@ -1113,6 +1309,7 @@ recipes = [
                 "amount": 3, 
                 "unit": "/4 oz",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "garnish_ingredients": [
@@ -1122,6 +1319,7 @@ recipes = [
                 "amount": 1,
                 "unit": " wedge",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 2,
@@ -1129,6 +1327,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "",
                 "amount_added": 0,
+                "media": "",
             },
             {
                 "id": 3,
@@ -1136,6 +1335,7 @@ recipes = [
                 "amount": 1, 
                 "unit": "",
                 "amount_added": 0,
+                "media": "",
             },
         ],
         "progress": 0,
@@ -1154,6 +1354,20 @@ added_to_shaker = []
 
 removed_from_glass = []
 added_to_glass = []
+
+@app.route('/search_recipes', methods=['GET', 'POST'])
+def search_recipes():
+    json_data = request.get_json()
+    search_string = json_data["search_string"]
+
+    status = False
+    recipe_id = None
+    for recipe in recipes:
+        if search_string.lower() in recipe["name"].lower():
+            status = True
+            recipe_id = recipe["id"]
+
+    return jsonify(status=status, recipe_id=recipe_id)
 
 @app.route('/recipe_list')
 def display_recipes():

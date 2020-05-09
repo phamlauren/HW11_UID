@@ -16,6 +16,10 @@
 			font-size: 36px;
 		}
 
+		.card{
+			height: 100%;
+		}
+
 	</style>
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384- GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -30,18 +34,51 @@
 </head>
 
 <body>
+	{% extends "navbar.html" %}
+	{% block content %}
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 title">Recipes</div>
 		</div>
-		{% for recipe in recipes %}
 		<div class="row">
 			<div class="col-md-12">
-				<button class="btn btn-primary recipe-btn" id="{{ recipe.id }}">{{ recipe.name }}</button>
+				<div class="card-columns">
+					{% for recipe in recipes %}
+					<div class="card">
+						<a href="http://127.0.0.1:5000/{{ recipe.id }}"><img class="card-img-top" src="{{ recipe.media }}" alt="Recipe image for {{ recipe.name }}"></a>
+						<div class="card-body">
+							<h5 class="card-title">{{ recipe.name }}</h5>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
 			</div>
+		</div>
+	</div>
+	{% endblock %}
+</body>
+
+</html>
+<!--
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 title">Recipes</div>
+		</div>
+		{% for recipe_group in recipes|batch(3) %}
+		<div class="row">
+			{% for recipe in recipe_group %}
+			<div class="col-md-4">
+				<div class="card">
+					<a href="http://127.0.0.1:5000/{{ recipe.id }}"><img class="card-img-top" src="{{ recipe.media }}" alt="Recipe image for {{ recipe.name }}"></a>
+					<div class="card-body">
+						<h5 class="card-title">{{ recipe.name }}</h5>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
 		</div>
 		{% endfor %}
 	<div>
 </body>
-
-</html>
+-->

@@ -65,6 +65,8 @@
 </head>
 
 <body>
+	{% extends "navbar.html" %}
+	{% block content %}
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 title">Garnishing a {{ recipe.name }}</div>
@@ -81,6 +83,7 @@
 			</div>
 		</div>
 	<div>
+	{% endblock %}
 </body>
 
 </html>
