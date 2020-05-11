@@ -30,23 +30,49 @@
 		}
 
 		.hover, .ui-draggable-dragging {
-			background-color: yellow;
+			background-color: #e1f2ce;
 			cursor: move;
 			z-index: 1;
 		}
 
 		.ui-droppable, #recipe-name{
-			background-color: #C2DEEA;
+			background-color: #ebf6de;
 		}
 
 		.ui-droppable-active{
-			background-color: #0000FF;
+			background-color: #9ED45D;
 			color: white;
 		}
 
 		.ui-droppable-hover{
-			background-color: #000075;
+			background-color: #6e9441;
 			color: white;
+		}
+
+		#glass-image, #drink-image {
+			width: 100%;
+		}
+
+		#loading-gif {
+			position: absolute;
+			width: 100%;
+			top: 9%;
+			left: 0;
+			z-index: 2;
+		}
+
+		.hide-media {
+			display: none;
+		}
+
+		#yes-button, #no-button {
+			background-color: #6e9441;
+			border: none;
+		}
+
+		#yes-button:hover, #no-button:hover {
+			background-color: #9ED45D;
+			border: none;
 		}
 
 	</style>
@@ -74,12 +100,22 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<div id="ppc-target">Add your ingredients to the glass!</div>
-				<div id="added-ingredients"></div>
-			</div>
-			<div class="col-md-6">
 				<div id="non-target">Ingredients</div>
 				<div id="available-ingredients"></div>
+			</div>
+			<div class="col-md-6">
+				<div id="ppc-target">
+					{% if recipe.glass == "highball" %}
+					<img src="https://www.barproducts.com/media/catalog/product/cache/2/image/640x640/9df78eab33525d08d6e5fb8d27136e95/9/-/9-oz-monument-highball-glass_4.jpg" id="glass-image" alt="Highball glass image" /> 
+					{% elif recipe.glass == "lowball" %}
+					<img src="https://img.thewhiskyexchange.com/900/glass_low1.jpg" id="glass-image" alt="Lowball glass image" /> 
+					{% elif recipe.glass == "martini" %}
+					<img src="https://assets.katomcdn.com/q_auto,f_auto/products/634/634-7518/634-7518.jpg" id="glass-image" alt="Martini glass image" /> 
+					{% endif %}
+					<img src="https://cdn.dribbble.com/users/2077073/screenshots/6005120/loadin_gif.gif" id="loading-gif" class="hide-media" alt="Loading wheel" />
+					<img src="{{ recipe.media }}" id="drink-image" class="hide-media" alt="Drink image" />
+					<div id="added-ingredients"></div>
+				</div>
 			</div>
 		</div>
 	<div>

@@ -102,21 +102,23 @@ var move_to_added_ingredients = function(ingredient_id, recipe_id){
             var recipe = result["recipe"]
             var added_ingredients = result["added_ingredients"]
             var available_ingredients = result["available_ingredients"]
+            display_lists(recipe, available_ingredients, added_ingredients)
             if(recipe["progress"] == recipe["until_complete"]){
-                display_lists(recipe, available_ingredients, added_ingredients)
-                $("#available-ingredients").empty()
-                $("#available-ingredients").text("Congratulations! You've successfully made a " + recipe["name"] + ".")
-                var yes_button = $("<button id=\"yes-button\" class=\"btn btn-primary\">")
-                $(yes_button).text("Let me find a new recipe!")
-                var no_button = $("<button id=\"no-button\" class=\"btn btn-primary\">")
-                $(no_button).text("I want to learn this recipe again.")
-                $("#available-ingredients").append(yes_button)
-                $("#available-ingredients").append(no_button)
-            }
-            else{            
-                var added_ingredients = result["added_ingredients"]
-                var available_ingredients = result["available_ingredients"]
-                display_lists(recipe, available_ingredients, added_ingredients)
+                $("#loading-gif").removeClass("hide-media")
+                setTimeout(() => {
+                    $("#loading-gif").addClass("hide-media")
+                    $("#glass-image").addClass("hide-media")
+                    $("#drink-image").removeClass("hide-media")
+                    $("#added-ingredients").empty()                
+                    $("#available-ingredients").empty()
+                    $("#available-ingredients").text("Congratulations! You've successfully made a " + recipe["name"] + ".")
+                    var yes_button = $("<button id=\"yes-button\" class=\"btn btn-primary\">")
+                    $(yes_button).text("Let me find a new recipe!")
+                    var no_button = $("<button id=\"no-button\" class=\"btn btn-primary\">")
+                    $(no_button).text("I want to learn this recipe again.")
+                    $("#available-ingredients").append(yes_button)
+                    $("#available-ingredients").append(no_button)
+                }, 1500);
             }
         },
         error: function(request, status, error){

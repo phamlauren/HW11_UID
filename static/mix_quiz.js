@@ -98,13 +98,12 @@ var move_to_added_ingredients = function(ingredient_id, recipe_id){
         data : JSON.stringify(data_to_save),
         success: function(result){
             var recipe = result["recipe"]
+            var added_ingredients = result["added_ingredients"]
+            var available_ingredients = result["available_ingredients"]
+            display_lists(recipe, available_ingredients, added_ingredients)
             if(recipe["progress"] == recipe["until_complete"]){
-                window.location.href = "http://127.0.0.1:5000/" + recipe["id"] + "/quiz_garnish"
-            }
-            else{            
-                var added_ingredients = result["added_ingredients"]
-                var available_ingredients = result["available_ingredients"]
-                display_lists(recipe, available_ingredients, added_ingredients)
+                $("#shaker-gif").removeClass("hide-shaker")
+                setTimeout(() => { window.location.href = "http://127.0.0.1:5000/" + recipe["id"] + "/quiz_garnish" }, 3500);   
             }
         },
         error: function(request, status, error){

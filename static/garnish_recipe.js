@@ -27,39 +27,26 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         $("#recipe-instructions").append(list_item)
     })
  
-    if(available_ingredients.length < 1){
-        var success_message = $("<div>")
-        $(success_message).text("Congratulations! You've successfully made a " + recipe["name"] + ". Are you ready for a quiz?")
-        var yes_button = $("<button id=\"yes-button\" class=\"btn btn-primary\">")
-        $(yes_button).text("Yes, quiz me!")
-        var no_button = $("<button id=\"no-button\" class=\"btn btn-primary\">")
-        $(no_button).text("No, let me learn the recipe again.")
-        $("#available-ingredients").append(success_message)
-        $("#available-ingredients").append(yes_button)
-        $("#available-ingredients").append(no_button)
-    }
-    else{
-        $.each(available_ingredients, function(i, ingredient){
-            var available_ingredient = $("<div>")
-            $(available_ingredient).addClass("draggable-employee")
-            $(available_ingredient).attr("data-id", ingredient.id)
-            if(ingredient.unit == ""){
-                $(available_ingredient).text(ingredient.ingredient)
-            }
-            else if(ingredient.amount == null){
-                $(available_ingredient).text(ingredient.ingredient + "," + ingredient.unit)
-            }
-            else{
-                $(available_ingredient).text(ingredient.ingredient + ", " + "1" + ingredient.unit)
-            }
-            $(available_ingredient).hover(function(){
-                $(this).addClass("hover")
-            }, function(){
-                $(this).removeClass("hover")
-            })
-            $("#available-ingredients").append(available_ingredient)
+    $.each(available_ingredients, function(i, ingredient){
+        var available_ingredient = $("<div>")
+        $(available_ingredient).addClass("draggable-employee")
+        $(available_ingredient).attr("data-id", ingredient.id)
+        if(ingredient.unit == ""){
+            $(available_ingredient).text(ingredient.ingredient)
+        }
+        else if(ingredient.amount == null){
+            $(available_ingredient).text(ingredient.ingredient + "," + ingredient.unit)
+        }
+        else{
+            $(available_ingredient).text(ingredient.ingredient + ", " + "1" + ingredient.unit)
+        }
+        $(available_ingredient).hover(function(){
+            $(this).addClass("hover")
+        }, function(){
+            $(this).removeClass("hover")
         })
-    }
+        $("#available-ingredients").append(available_ingredient)
+    })
 
     $.each(added_ingredients, function(i, ingredient){
         console.log(added_ingredients)
@@ -128,6 +115,24 @@ var move_to_added_ingredients = function(ingredient_id, recipe_id){
             var added_ingredients = result["added_ingredients"]
             var available_ingredients = result["available_ingredients"]
             display_lists(recipe, available_ingredients, added_ingredients)
+            if(available_ingredients.length < 1){
+                $("#loading-gif").removeClass("hide-media")
+                setTimeout(() => {
+                    $("#loading-gif").addClass("hide-media")
+                    $("#glass-image").addClass("hide-media") 
+                    $("#drink-image").removeClass("hide-media")
+                    $("#added-ingredients").empty()
+                    var success_message = $("<div>")
+                    $(success_message).text("Congratulations! You've successfully made a " + recipe["name"] + ". Are you ready for a quiz?")
+                    var yes_button = $("<button id=\"yes-button\" class=\"btn btn-primary\">")
+                    $(yes_button).text("Yes, quiz me!")
+                    var no_button = $("<button id=\"no-button\" class=\"btn btn-primary\">")
+                    $(no_button).text("No, let me learn the recipe again.")
+                    $("#available-ingredients").append(success_message)
+                    $("#available-ingredients").append(yes_button)
+                    $("#available-ingredients").append(no_button)
+                }, 1500);
+            }
         },
         error: function(request, status, error){
             console.log("Error");

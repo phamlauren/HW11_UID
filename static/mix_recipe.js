@@ -114,13 +114,10 @@ var move_to_added_ingredients = function(ingredient_id, recipe_id){
             var recipe = result["recipe"]
             var added_ingredients = result["added_ingredients"]
             var available_ingredients = result["available_ingredients"]
-            console.log(added_ingredients)
-            console.log(available_ingredients)
+            display_lists(recipe, available_ingredients, added_ingredients)
             if(available_ingredients.length < 1){
-                window.location.href = "http://127.0.0.1:5000/" + recipe["id"] + "/garnish"
-            }
-            else{
-                display_lists(recipe, available_ingredients, added_ingredients)
+                $("#shaker-gif").removeClass("hide-shaker")
+                setTimeout(() => { window.location.href = "http://127.0.0.1:5000/" + recipe["id"] + "/garnish" }, 3500);
             }
         },
         error: function(request, status, error){

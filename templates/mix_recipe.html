@@ -14,6 +14,7 @@
 
 		.title{
 			font-size: 36px;
+			margin-bottom: 10px;
 		}
 
 		#non-target, #ppc-target, #recipe-name{
@@ -31,23 +32,47 @@
 		}
 
 		.hover, .ui-draggable-dragging {
-			background-color: yellow;
+			background-color: #e1f2ce;
 			cursor: move;
 			z-index: 1;
 		}
 
 		.ui-droppable, #recipe-name{
-			background-color: #C2DEEA;
+			background-color: #ebf6de;
 		}
 
 		.ui-droppable-active{
-			background-color: #0000FF;
+			background-color: #9ED45D;
 			color: white;
 		}
 
 		.ui-droppable-hover{
-			background-color: #000075;
+			background-color: #6e9441;
 			color: white;
+		}
+
+		#cocktail-shaker {
+			width: 100%;
+		}
+
+		#ppc-target {
+			position: relative;
+			width: 100%;
+		}
+
+		#recipe-instructions, #added-ingredients, #available-ingredients {
+			font-size: 20px;
+		}
+
+		#shaker-gif{
+			position: absolute;
+			top: 23%;
+			left: 25%;
+			width: 50%;
+		}
+
+		.hide-shaker {
+			display: none;
 		}
 
 	</style>
@@ -74,19 +99,22 @@
 		</div>
 		<div class="row">
 			<div class="col-md-4">
-				<div id="recipe-name"></div>
-				<div id="recipe-instructions"></div>
-			</div>
-			<div class="col-md-4">
 				<div id="non-target">Ingredients list</div>
 				<div id="available-ingredients"></div>
 			</div>
 			<div class="col-md-4">
-				<div id="ppc-target">Into the cocktail shaker</div>
-				<div id="added-ingredients"></div>
+				<div id="ppc-target">
+					<img src="https://cdn.shopify.com/s/files/1/0955/3700/products/CS2000.jpg?v=1479492878" id="cocktail-shaker" alt="Cocktail shaker image"/>
+					<div id="added-ingredients"></div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div id="recipe-name"></div>
+				<div id="recipe-instructions"></div>
 			</div>
 		</div>
-	<div>
+	</div>
+	<img src="https://i.pinimg.com/originals/8b/f4/5b/8bf45bfb7b2b86b1502577ae478e787d.gif" alt="Cocktail shaking gif" id="shaker-gif" class="hide-shaker"/>
 	{% endblock %}
 </body>
 

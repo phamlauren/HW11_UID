@@ -10,6 +10,7 @@ recipes = [
         "id": 1,
         "name": "Whiskey Sour",
         "media": "https://s3.amazonaws.com/commonwealthcocktailsimages/whiskey_sour.png", 
+        "glass": "lowball", 
         "mix_ingredients": [
             {
                 "id": 1,
@@ -69,6 +70,7 @@ recipes = [
         "id": 2,
         "name": "Margarita",
         "media": "https://www.patrontequila.com/binaries/largeretina/content/gallery/patrontequila/recipes/roca-patron-reposado/tommys-margarita/tommy-marg.jpg", 
+        "glass": "lowball",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -128,6 +130,7 @@ recipes = [
         "id": 3,
         "name": "Cosmopolitan",
         "media": "https://i.pinimg.com/originals/7d/54/74/7d547450ee5fdcd471922b1c5d37203e.jpg", 
+        "glass": "martini",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -187,6 +190,7 @@ recipes = [
         "id": 4,
         "name": "Mojito",
         "media": "https://assets.bonappetit.com/photos/57acc0be1b33404414975167/master/pass/mojito.jpg", 
+        "glass": "highball",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -246,6 +250,7 @@ recipes = [
         "id": 5,
         "name": "Gimlet",
         "media": "https://www.titosvodka.com/uploads/Recipes/Cocktails-White-Background/_auto1000/Titos-Vodka-Gimlet-W.jpg", 
+        "glass": "martini",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -297,6 +302,7 @@ recipes = [
         "id": 6,
         "name": "Sidecar",
         "media": "https://i.pinimg.com/600x315/84/cb/c9/84cbc9ceaf87ac9a17d4020cb7cfaca0.jpg", 
+        "glass": "martini",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -348,6 +354,7 @@ recipes = [
         "id": 7,
         "name": "French 75",
         "media": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2011/11/15/0/FNM_120111-Centerfold-002_s4x3.jpg.rend.hgtvcom.616.462.suffix/1371600652446.jpeg", 
+        "glass": "martini",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -407,6 +414,7 @@ recipes = [
         "id": 8,
         "name": "Daiquiri",
         "media": "https://www.my-vb.com/sites/default/files/styles/image_recette/public/ebiz/Daiquiri%20Gimlet.jpg?itok=q90SMAsa", 
+        "glass": "martini",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -450,6 +458,7 @@ recipes = [
         "id": 9,
         "name": "Espresso Martini",
         "media": "https://shake-that.com/wp-content/uploads/2015/07/Espresso-martini.jpg", 
+        "glass": "martini",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -509,6 +518,7 @@ recipes = [
         "id": 10,
         "name": "Negroni",
         "media": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2017/1/18/4/FNM030117_Classic-Negroni_s4x3.jpg.rend.hgtvcom.616.462.suffix/1484859730499.jpeg", 
+        "glass": "lowball",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -560,6 +570,7 @@ recipes = [
         "id": 11,
         "name": "Bloody Mary",
         "media": "https://www.monin.com/us/media/catalog/product/cache/9a4060007a6b38763b086819271c5c8a/H/o/Hot_Caribbean_Bloody_Mary-1534124666-0.png", 
+        "glass": "highball",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -667,6 +678,7 @@ recipes = [
         "id": 12,
         "name": "Mai Tai",
         "media": "https://us.inshaker.com/uploads/cocktail/promo/552/1542205346-Golden-Mai-Tai-_promo.jpg", 
+        "glass": "lowball",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -742,6 +754,7 @@ recipes = [
         "id": 13,
         "name": "Gin fizz",
         "media": "https://s3.amazonaws.com/commonwealthcocktailsimages/uGledHgmIVXDY4DB_d-rAA==-Ramos-Gin-Fizz-IBA-commonwealth-cocktails.png", 
+        "glass": "highball",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -809,6 +822,7 @@ recipes = [
         "id": 14,
         "name": "Planters' Punch",
         "media": "http://shake-that.com/wp-content/uploads/2015/07/Planters-Punch-780x780.png", 
+        "glass": "highball",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -885,6 +899,7 @@ recipes = [
         "id": 15,
         "name": "Singapore Sling",
         "media": "https://www.kitchengeekery.com/images/uploads/cocktails/_watermark/singapore-sling.jpg", 
+        "glass": "highball",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -968,6 +983,7 @@ recipes = [
         "id": 16,
         "name": "Floridian",
         "media": "http://www.completecocktails.com/img/d/l/TheFloridian.png", 
+        "glass": "lowball",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -1034,7 +1050,8 @@ recipes = [
     {
         "id": 17,
         "name": "Lemon-Tini",
-        "media": "https://lh3.googleusercontent.com/proxy/AJ8nwu1XaXun0pboNvoa5x-qCvj8A4xphxkwI5c8Zf5DVcy9lZXglXxaHEFYdj0D5TLlCZPA-5INU5wsmwOuziKxf9yGzftjiFfq0-JEZWa92fT2Mmw_h9vHOskLrL4xyvxxQ9v6QQ", 
+        "media": "https://fbworld.com/wp-content/uploads/2015/06/Chili-Lemontini.jpg", 
+        "glass": "martini",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -1094,6 +1111,7 @@ recipes = [
         "id": 18,
         "name": "Aviation",
         "media": "https://www.diageobaracademy.com/uploads/photos/cc7c3e436af3079a48e3703e01cfcae1.jpg", 
+        "glass": "martini",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -1153,6 +1171,7 @@ recipes = [
         "id": 19,
         "name": "White Lady",
         "media": "https://shake-that.com/wp-content/uploads/2015/07/White-Lady.jpg", 
+        "glass": "martini",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -1211,6 +1230,7 @@ recipes = [
         "id": 20,
         "name": "Bee's Knees",
         "media": "https://www.agalima.com/wp-content/uploads/sites/6/2018/02/BeesKnees_430.png", 
+        "glass": "martini",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -1262,6 +1282,7 @@ recipes = [
         "id": 21,
         "name": "Blue Hawaii",
         "media": "https://kinkybeverages.com/wp-content/uploads/2018/04/Recipe-Aloha-BlueHawaiian.jpg", 
+        "glass": "highball",
         "mix_ingredients": [
             {
                 "id": 1,
