@@ -217,6 +217,8 @@ $(document).ready(function(){
         }
         $("#recipe_dropdown").append(list_item)
     })
+    $("#recipe_dropdown").append("<br />")
+    $("#recipe_dropdown").append("<div class=\"recipe-name\">Garnishes</div>")
     $.each(recipe["garnish_ingredients"], function(i, item){
         var list_item = $("<div>")
         if(item.unit == ""){

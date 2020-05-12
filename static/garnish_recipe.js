@@ -6,7 +6,7 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
     $("#added-ingredients").empty()
     //insert all new data
 
-    $("#recipe-name").text(recipe["name"])
+    $("#recipe-name").text(recipe["name"] + " recipe")
     $("#recipe-name").attr("data-id", recipe["id"])
     $.each(recipe["garnish_ingredients"], function(i, item){
         var list_item = $("<div>")
@@ -198,6 +198,8 @@ $(document).ready(function(){
         }
         $("#recipe_dropdown").append(list_item)
     })
+    $("#recipe_dropdown").append("<br />")
+    $("#recipe_dropdown").append("<div class=\"recipe-name\">Garnishes</div>")
     $.each(recipe["garnish_ingredients"], function(i, item){
         var list_item = $("<div>")
         if(item.unit == ""){
