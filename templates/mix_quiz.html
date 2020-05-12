@@ -69,8 +69,58 @@
 			width: 50%;
 		}
 
-		.hide-shaker {
+		.hide-media {
 			display: none;
+		}
+
+		#cursor-gif {
+			position: absolute;
+			width: 25%;
+			margin-top: 15px;
+			margin-left: 150px;
+			z-index: 2;
+		}
+
+		#arrow-gif {
+			position: absolute;
+			width: 40%;
+			margin-top: -180px;
+			margin-left: 150px;
+			transform: rotate(55deg);
+			z-index: 2;
+		}
+
+		#reverse-arrow-gif {
+			position: absolute;
+			width: 40%;
+			margin-top: 20px;
+			margin-left: 150px;
+			transform: rotate(235deg);
+			z-index: 2;
+		}
+
+		.short {
+			font-size: 12px;
+			position: absolute;
+			width: 100px;
+			margin-top: -25px;
+			margin-left: 500px;
+			z-index: 2;
+			border: 1px solid gray;
+			box-shadow: 5px 5px 2px #aaaaaa;
+			background-color: white;
+		}
+
+		.long {
+			font-size: 12px;
+			position: absolute;
+			width: 200px;
+			margin-top: -25px;
+			margin-left: 425px;
+			z-index: 2;
+			border: 1px solid gray;
+			box-shadow: 5px 5px 2px #aaaaaa;
+			background-color: white;
 		}
 
 	</style>
@@ -99,6 +149,10 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div id="non-target">Ingredients</div>
+				<img src="https://media2.giphy.com/media/d88ZIuHQiAPZAuNgkT/giphy.gif?cid=ecf05e47f2359f906ff76edcb865e24753974ac7bf1e51cf&rid=giphy.gif" alt="Arrow gif" id="arrow-gif" />
+				<img src="https://media.giphy.com/media/l4FGCv4dauH4nzmBq/giphy.gif" alt="Cursor gif" id="cursor-gif" />
+				<div id="instructions-div" class="short">Drag and drop the ingredients into the cocktail shaker!</div>
+				<img src="https://media2.giphy.com/media/d88ZIuHQiAPZAuNgkT/giphy.gif?cid=ecf05e47f2359f906ff76edcb865e24753974ac7bf1e51cf&rid=giphy.gif" alt="Reverse arrow gif" id="reverse-arrow-gif" class="hide-media" />
 				<div id="available-ingredients"></div>
 			</div>
 			<div class="col-md-6">
@@ -109,7 +163,7 @@
 			</div>
 		</div>
 	</div>
-	<img src="https://i.pinimg.com/originals/8b/f4/5b/8bf45bfb7b2b86b1502577ae478e787d.gif" alt="Cocktail shaking gif" id="shaker-gif" class="hide-shaker"/>
+	<img src="https://i.pinimg.com/originals/8b/f4/5b/8bf45bfb7b2b86b1502577ae478e787d.gif" alt="Cocktail shaking gif" id="shaker-gif" class="hide-media"/>
 	{% endblock %}
 </body>
 

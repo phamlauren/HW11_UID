@@ -11,7 +11,36 @@
     <style>
     	.html {
     		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    	}
+    	}		
+
+    	#recipe_dropdown {
+			font-size: 12px;
+			position: absolute;
+			margin-top: 10px;
+			margin-left: 0px;
+			z-index: 2;
+			border: 1px solid gray;
+			box-shadow: 5px 5px 2px #aaaaaa;
+			background-color: white;
+			padding: 10px;
+		}
+
+		.recipe-name{
+			text-decoration: underline;
+		}
+
+		.hide-dropdown{
+			display: none;
+		}
+
+		#pointer{
+			border:solid 10px transparent;
+			border-bottom-color:black;
+			position:absolute;
+			margin-left: 45px;
+			margin-top: -10px;
+			z-index: 2;}
+
     </style>
     
 </head>
@@ -32,6 +61,11 @@
 	      </li>
 	      <li class="nav-item" id="quiz_nav">
 	        <a class="nav-link text-nowrap" id="quiz_link" href="#">Test my knowledge</a>
+	      </li>
+	      <li class="nav-item" id="recipe_nav">
+	        <a class="nav-link text-nowrap" id="select_dropdown" href="#">Recipe peek</a>
+	        <div id="recipe_dropdown" class="hide-dropdown"></div>
+	        <div id="pointer" class="hide-dropdown"></div>
 	      </li>
 	    </ul>
 	    <input class="form-control mr-sm-2" type="search" placeholder="Search by recipe name" aria-label="Search" id="search_input">

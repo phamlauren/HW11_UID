@@ -116,6 +116,7 @@ var move_to_added_ingredients = function(ingredient_id, recipe_id){
             var available_ingredients = result["available_ingredients"]
             display_lists(recipe, available_ingredients, added_ingredients)
             if(available_ingredients.length < 1){
+                $("#arrow-gif").addClass("hide-media")
                 $("#loading-gif").removeClass("hide-media")
                 setTimeout(() => {
                     $("#loading-gif").addClass("hide-media")
@@ -166,14 +167,45 @@ var move_to_available_ingredients = function(ingredient_id, recipe_id){
     });
 }
 
-$(document).ready(function(){
-    display_lists(recipe, available_ingredients, added_ingredients)
-})
-
 $(document).on("click", "#yes-button", function(){
     window.location.href = "http://127.0.0.1:5000/" + recipe["id"] + "/quiz_mix"
 })
 
 $(document).on("click", "#no-button", function(){
     window.location.href = "http://127.0.0.1:5000/" + recipe["id"]    
+})
+
+$(document).ready(function(){
+    display_lists(recipe, available_ingredients, added_ingredients)
+    $("#recipe_dropdown").empty()
+    var recipe_name = $("<div>")
+    recipe_name.addClass("recipe-name")
+    recipe_name.text(recipe.name)
+    $("#recipe_dropdown").append(recipe_name)
+    $.each(recipe["mix_ingredients"], function(i, item){
+        var list_item = $("<div>")
+        if(item.unit == ""){
+            $(list_item).text(item.ingredient)
+        }
+        else if(item.amount == null){
+            $(list_item).text(item.ingredient + "," + item.unit)
+        }
+        else{
+            $(list_item).text(item.ingredient + ", " + item.amount + item.unit)   
+        }
+        $("#recipe_dropdown").append(list_item)
+    })
+    $.each(recipe["garnish_ingredients"], function(i, item){
+        var list_item = $("<div>")
+        if(item.unit == ""){
+            $(list_item).text(item.ingredient)
+        }
+        else if(item.amount == null){
+            $(list_item).text(item.ingredient + "," + item.unit)
+        }
+        else{
+            $(list_item).text(item.ingredient + ", " + item.amount + item.unit)   
+        }
+        $("#recipe_dropdown").append(list_item)
+    })
 })

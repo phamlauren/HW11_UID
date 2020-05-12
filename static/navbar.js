@@ -98,3 +98,29 @@ $(document).on("click", "#quiz_link", function(){
 	}
 })
 
+$(document).on("click", function() {
+    $("#recipe_dropdown").addClass("hide-dropdown");
+    $("#pointer").addClass("hide-dropdown");
+});
+
+$(document).on("drop", function() {
+    $("#recipe_dropdown").addClass("hide-dropdown");
+    $("#pointer").addClass("hide-dropdown");
+});
+
+$(document).on("click", "#select_dropdown", function(e){
+    e.stopPropagation();
+    if(window.location.href.indexOf("recipe_list")>-1){
+      alert("Please choose a recipe.")
+    }
+    else{
+      if($("#recipe_dropdown").hasClass("hide-dropdown")){
+        $("#recipe_dropdown").removeClass("hide-dropdown")
+        $("#pointer").removeClass("hide-dropdown")
+      }
+      else{
+      $("#recipe_dropdown").addClass("hide-dropdown")
+      $("#pointer").addClass("hide-dropdown")
+      }
+    }
+})

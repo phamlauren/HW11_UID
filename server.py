@@ -1506,6 +1506,7 @@ def quiz_recipe(recipe_id=None):
     added_to_shaker.clear()
 
     selected_recipe = recipes[recipe_id-1]
+    selected_recipe["progress"] = 0
     counter=0
     for ingredient in selected_recipe["mix_ingredients"]:
         try:
@@ -1535,14 +1536,11 @@ def quiz_recipe(recipe_id=None):
             ingredient["quiz_correct"] = False
             removed_from_shaker.append(ingredient)
 
-    # print(temp_list)
     shuffle(removed_from_shaker)
     i=1
     for ingredient in removed_from_shaker:
         ingredient["quiz_id"] = i
         i = i + 1
-
-    print(removed_from_shaker)
 
     return render_template('mix_quiz.html', recipe=selected_recipe, available_ingredients=removed_from_shaker, added_ingredients=added_to_shaker)
 
@@ -1557,24 +1555,17 @@ def add_to_shaker(recipe_id=None):
         if ingredient["quiz_id"] == int(ingredient_id):
             ingredient_to_move = ingredient
 
+    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
     if ingredient_to_move["quiz_correct"]:
         selected_recipe["progress"] = str(int(selected_recipe["progress"]) + 1)
-        ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
         if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
             removed_from_shaker.remove(ingredient_to_move)
         if(ingredient_to_move["amount_added"] == 1):
             added_to_shaker.insert(0, ingredient_to_move)
-
-        print(removed_from_shaker)
-        print(added_to_shaker)
     
     else:
-        selected_recipe["progress"] = str(int(selected_recipe["progress"]) - 1)
         removed_from_shaker.remove(ingredient_to_move)
         added_to_shaker.insert(0, ingredient_to_move)
-
-        print(removed_from_shaker)
-        print(added_to_shaker)
 
     return jsonify(recipe=selected_recipe, available_ingredients=removed_from_shaker, added_ingredients=added_to_shaker)
 
@@ -1589,24 +1580,17 @@ def remove_from_shaker(recipe_id=None):
         if ingredient["quiz_id"] == int(ingredient_id):
             ingredient_to_move = ingredient
     
+    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
     if ingredient_to_move["quiz_correct"]:
         selected_recipe["progress"] = str(int(selected_recipe["progress"]) - 1)
-        ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
         if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
             added_to_shaker.remove(ingredient_to_move)
         if(ingredient_to_move["amount_added"] == 1):
             removed_from_shaker.insert(0, ingredient_to_move)
-
-        print(removed_from_shaker)
-        print(added_to_shaker)
     
     else:
-        selected_recipe["progress"] = str(int(selected_recipe["progress"]) + 1)
         added_to_shaker.remove(ingredient_to_move)
         removed_from_shaker.insert(0, ingredient_to_move)
-
-        print(removed_from_shaker)
-        print(added_to_shaker)
 
     return jsonify(recipe=selected_recipe, available_ingredients=removed_from_shaker, added_ingredients=added_to_shaker)
 
@@ -1619,6 +1603,7 @@ def quiz_garnish(recipe_id=None):
     added_to_glass.clear()
 
     selected_recipe = recipes[recipe_id-1]
+    selected_recipe["progress"]=0
     counter=0
     for ingredient in selected_recipe["garnish_ingredients"]:
         try:
@@ -1669,16 +1654,15 @@ def add_to_glass(recipe_id=None):
         if ingredient["quiz_id"] == int(ingredient_id):
             ingredient_to_move = ingredient
 
+    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
     if ingredient_to_move["quiz_correct"]:
         selected_recipe["progress"] = str(int(selected_recipe["progress"]) + 1)
-        ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
         if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
             removed_from_glass.remove(ingredient_to_move)
         if(ingredient_to_move["amount_added"] == 1):
             added_to_glass.insert(0, ingredient_to_move)
 
     else:
-        selected_recipe["progress"] = str(int(selected_recipe["progress"]) - 1)
         removed_from_glass.remove(ingredient_to_move)
         added_to_glass.insert(0, ingredient_to_move)
 
@@ -1695,16 +1679,15 @@ def remove_from_glass(recipe_id=None):
         if ingredient["quiz_id"] == int(ingredient_id):
             ingredient_to_move = ingredient
 
+    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] - 1
     if ingredient_to_move["quiz_correct"]:
         selected_recipe["progress"] = str(int(selected_recipe["progress"]) - 1)
-        ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
         if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
             added_to_glass.remove(ingredient_to_move)
         if(ingredient_to_move["amount_added"] == 1):
             removed_from_glass.insert(0, ingredient_to_move)
 
     else:
-        selected_recipe["progress"] = str(int(selected_recipe["progress"]) + 1)
         added_to_glass.remove(ingredient_to_move)
         removed_from_glass.insert(0, ingredient_to_move)
 

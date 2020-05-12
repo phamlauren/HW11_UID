@@ -37,9 +37,14 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         $(added_ingredient).attr("data-id", ingredient.quiz_id)
         $(added_ingredient).attr("data-name", ingredient.ingredient)
         if(ingredient.quiz_correct == false){
-            $(added_ingredient).text("Oops! There is no " + ingredient.ingredient.toLowerCase() + " in this recipe.")
+            $("#instructions-div").text("Oops! The ingredients in the shaker are not quite right. Please drag the incorrect items out and consult the \"Recipe peek\" tool above if you need a reminder of what belongs in this recipe!")
+            $("#instructions-div").removeClass("hide-media")
+            $("#instructions-div").removeClass("short")
+            $("#instructions-div").addClass("long")
+            $("#reverse-arrow-gif").removeClass("hide-media")
+
         }
-        else if(ingredient.unit == ""){
+        if(ingredient.unit == ""){
             $(added_ingredient).text(ingredient.ingredient)
         }
         else if(ingredient.amount == null){
@@ -100,9 +105,13 @@ var move_to_added_ingredients = function(ingredient_id, recipe_id){
             var recipe = result["recipe"]
             var added_ingredients = result["added_ingredients"]
             var available_ingredients = result["available_ingredients"]
+            $("#instructions-div").addClass("hide-media")
+            $("#reverse-arrow-gif").addClass("hide-media")
             display_lists(recipe, available_ingredients, added_ingredients)
+            $("#cursor-gif").addClass("hide-media")
             if(recipe["progress"] == recipe["until_complete"]){
-                $("#shaker-gif").removeClass("hide-shaker")
+                $("#arrow-gif").addClass("hide-media")
+                $("#shaker-gif").removeClass("hide-media")
                 setTimeout(() => { window.location.href = "http://127.0.0.1:5000/" + recipe["id"] + "/quiz_garnish" }, 3500);   
             }
         },
@@ -127,6 +136,8 @@ var move_to_available_ingredients = function(ingredient_id, recipe_id){
             var recipe = result["recipe"]
             var added_ingredients = result["added_ingredients"]
             var available_ingredients = result["available_ingredients"]
+            $("#instructions-div").addClass("hide-media")
+            $("#reverse-arrow-gif").addClass("hide-media")
             display_lists(recipe, available_ingredients, added_ingredients)
         },
         error: function(request, status, error){
@@ -140,4 +151,35 @@ var move_to_available_ingredients = function(ingredient_id, recipe_id){
 
 $(document).ready(function(){
     display_lists(recipe, available_ingredients, added_ingredients)
+    $("#recipe_dropdown").empty()
+    var recipe_name = $("<div>")
+    recipe_name.addClass("recipe-name")
+    recipe_name.text(recipe.name)
+    $("#recipe_dropdown").append(recipe_name)
+    $.each(recipe["mix_ingredients"], function(i, item){
+        var list_item = $("<div>")
+        if(item.unit == ""){
+            $(list_item).text(item.ingredient)
+        }
+        else if(item.amount == null){
+            $(list_item).text(item.ingredient + "," + item.unit)
+        }
+        else{
+            $(list_item).text(item.ingredient + ", " + item.amount + item.unit)   
+        }
+        $("#recipe_dropdown").append(list_item)
+    })
+    $.each(recipe["garnish_ingredients"], function(i, item){
+        var list_item = $("<div>")
+        if(item.unit == ""){
+            $(list_item).text(item.ingredient)
+        }
+        else if(item.amount == null){
+            $(list_item).text(item.ingredient + "," + item.unit)
+        }
+        else{
+            $(list_item).text(item.ingredient + ", " + item.amount + item.unit)   
+        }
+        $("#recipe_dropdown").append(list_item)
+    })
 })
