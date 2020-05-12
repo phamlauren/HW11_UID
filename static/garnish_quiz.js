@@ -4,8 +4,9 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
     $("#added-ingredients").empty()
     //insert all new data
 
-    $("#progress_bar").empty()
-    $("#progress_bar").text("Progress: " + recipe["progress"] + "/" + recipe["until_complete"])
+    $("#progress-bar").attr("aria-valuenow", 100*(recipe["progress"]/recipe["until_complete"]))
+    $("#progress-bar").css("width", (100*(recipe["progress"]/recipe["until_complete"]) + "%"))
+
     $("#ppc-target").attr("data-id", recipe["id"])
 
     $.each(available_ingredients, function(i, ingredient){
@@ -38,10 +39,12 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         $(added_ingredient).attr("data-validity", ingredient.quiz_correct)
         $(added_ingredient).attr("data-name", ingredient.ingredient)
         if(ingredient.quiz_correct == false){
-            $(added_ingredient).text("Oops! There is no " + ingredient.ingredient.toLowerCase() + " in this recipe.")
-
+            $("#instructions-div").removeClass("hide-media")
+            $("#reverse-arrow-gif").removeClass("hide-media")
+            $("#progress-bar").attr("aria-valuenow", 100*((recipe["progress"]-1)/recipe["until_complete"]))
+            $("#progress-bar").css("width", (100*((recipe["progress"]-1)/recipe["until_complete"]) + "%"))
         }
-        else if(ingredient.unit == ""){
+        if(ingredient.unit == ""){
             $(added_ingredient).text(ingredient.ingredient)
         }
         else if(ingredient.amount == null){
@@ -102,22 +105,31 @@ var move_to_added_ingredients = function(ingredient_id, recipe_id){
             var recipe = result["recipe"]
             var added_ingredients = result["added_ingredients"]
             var available_ingredients = result["available_ingredients"]
+            $("#instructions-div").addClass("hide-media")
+            $("#reverse-arrow-gif").addClass("hide-media")
             display_lists(recipe, available_ingredients, added_ingredients)
-            if(recipe["progress"] == recipe["until_complete"]){
+            if(recipe["progress"] == recipe["until_complete"] && recipe["garnish_ingredients"].length == added_ingredients.length){
                 $("#loading-gif").removeClass("hide-media")
+                $("#arrow-gif").addClass("hide-media")
                 setTimeout(() => {
                     $("#loading-gif").addClass("hide-media")
                     $("#glass-image").addClass("hide-media")
                     $("#drink-image").removeClass("hide-media")
                     $("#added-ingredients").empty()                
                     $("#available-ingredients").empty()
-                    $("#available-ingredients").text("Congratulations! You've successfully made a " + recipe["name"] + ".")
+                    $("#available-ingredients").html("Congratulations! You've successfully made a " + recipe["name"] + ".<br />")
                     var yes_button = $("<button id=\"yes-button\" class=\"btn btn-primary\">")
                     $(yes_button).text("Let me find a new recipe!")
                     var no_button = $("<button id=\"no-button\" class=\"btn btn-primary\">")
                     $(no_button).text("I want to learn this recipe again.")
+                    $("#available-ingredients").css("padding", "10px")
+                    $(yes_button).css("margin", "5px")
+                    $(no_button).css("margin", "5px")
                     $("#available-ingredients").append(yes_button)
+                    $("#available-ingredients").append("<br />")
                     $("#available-ingredients").append(no_button)
+                    $("#progress-bar").attr("aria-valuenow", 0)
+                    $("#progress-bar").css("width", "0%")
                 }, 1500);
             }
         },
@@ -142,7 +154,31 @@ var move_to_available_ingredients = function(ingredient_id, recipe_id){
             var recipe = result["recipe"]
             var added_ingredients = result["added_ingredients"]
             var available_ingredients = result["available_ingredients"]
+            $("#instructions-div").addClass("hide-media")
+            $("#reverse-arrow-gif").addClass("hide-media")
             display_lists(recipe, available_ingredients, added_ingredients)
+            if(recipe["progress"] == recipe["until_complete"] && recipe["garnish_ingredients"].length == added_ingredients.length){
+                $("#loading-gif").removeClass("hide-media")
+                $("#arrow-gif").addClass("hide-media")
+                setTimeout(() => {
+                    $("#loading-gif").addClass("hide-media")
+                    $("#glass-image").addClass("hide-media")
+                    $("#drink-image").removeClass("hide-media")
+                    $("#added-ingredients").empty()                
+                    $("#available-ingredients").empty()
+                    $("#available-ingredients").html("Congratulations! You've successfully made a " + recipe["name"] + ".<br />")
+                    var yes_button = $("<button id=\"yes-button\" class=\"btn btn-primary\">")
+                    $(yes_button).text("Let me find a new recipe!")
+                    var no_button = $("<button id=\"no-button\" class=\"btn btn-primary\">")
+                    $(no_button).text("I want to learn this recipe again.")
+                    $("#available-ingredients").css("padding", "10px")
+                    $(yes_button).css("margin", "5px")
+                    $(no_button).css("margin", "5px")
+                    $("#available-ingredients").append(yes_button)
+                    $("#available-ingredients").append("<br />")
+                    $("#available-ingredients").append(no_button)
+                }, 1500);
+            }
         },
         error: function(request, status, error){
             console.log("Error");

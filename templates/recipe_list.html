@@ -13,7 +13,7 @@
 		}
 
 		.title{
-			font-size: 36px;
+			font-size: 28px;
 		}
 
 		.card{
@@ -29,6 +29,7 @@
   	 <script type="text/javascript" src="{{ url_for('static', filename = 'recipe_list.js') }}"></script>
   	 <script>
   	 	var recipes = {{recipes|tojson}}
+  	 	var search_string = {{search_string|tojson}}
   	 </script>
   	 
 </head>
@@ -38,7 +39,11 @@
 	{% block content %}
 	<div class="container">
 		<div class="row">
+			{% if not search_string %}
 			<div class="col-md-12 title">Recipes</div>
+			{% else %}
+			<div class="col-md-12 title">Recipes with names similar to or containing ingredients similar to "{{ search_string }}"</div>
+			{% endif %}
 		</div>
 		<div class="row">
 			<div class="col-md-12">

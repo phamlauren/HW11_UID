@@ -4,8 +4,9 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
     $("#added-ingredients").empty()
     //insert all new data
 
-    $("#progress_bar").empty()
-    $("#progress_bar").text("Progress: " + recipe["progress"] + "/" + recipe["until_complete"])
+    $("#progress-bar").attr("aria-valuenow", 100*(recipe["progress"]/recipe["until_complete"]))
+    $("#progress-bar").css("width", (100*(recipe["progress"]/recipe["until_complete"]) + "%"))
+
     $("#ppc-target").attr("data-id", recipe["id"])
 
     $.each(available_ingredients, function(i, ingredient){
@@ -37,11 +38,13 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         $(added_ingredient).attr("data-id", ingredient.quiz_id)
         $(added_ingredient).attr("data-name", ingredient.ingredient)
         if(ingredient.quiz_correct == false){
-            $("#instructions-div").text("Oops! The ingredients in the shaker are not quite right. Please drag the incorrect items out and consult the \"Recipe peek\" tool above if you need a reminder of what belongs in this recipe!")
+            $("#instructions-div").text("Oops! The ingredients in the shaker are not quite right. Please drag the incorrect items out - consult the \"Recipe peek\" tool above if you need a reminder!")
             $("#instructions-div").removeClass("hide-media")
             $("#instructions-div").removeClass("short")
             $("#instructions-div").addClass("long")
             $("#reverse-arrow-gif").removeClass("hide-media")
+            $("#progress-bar").attr("aria-valuenow", 100*((recipe["progress"]-1)/recipe["until_complete"]))
+            $("#progress-bar").css("width", (100*((recipe["progress"]-1)/recipe["until_complete"]) + "%"))
 
         }
         if(ingredient.unit == ""){
@@ -107,9 +110,9 @@ var move_to_added_ingredients = function(ingredient_id, recipe_id){
             var available_ingredients = result["available_ingredients"]
             $("#instructions-div").addClass("hide-media")
             $("#reverse-arrow-gif").addClass("hide-media")
-            display_lists(recipe, available_ingredients, added_ingredients)
             $("#cursor-gif").addClass("hide-media")
-            if(recipe["progress"] == recipe["until_complete"]){
+            display_lists(recipe, available_ingredients, added_ingredients)
+            if(recipe["progress"] == recipe["until_complete"] && recipe["mix_ingredients"].length == added_ingredients.length){
                 $("#arrow-gif").addClass("hide-media")
                 $("#shaker-gif").removeClass("hide-media")
                 setTimeout(() => { window.location.href = "http://127.0.0.1:5000/" + recipe["id"] + "/quiz_garnish" }, 3500);   
@@ -139,6 +142,11 @@ var move_to_available_ingredients = function(ingredient_id, recipe_id){
             $("#instructions-div").addClass("hide-media")
             $("#reverse-arrow-gif").addClass("hide-media")
             display_lists(recipe, available_ingredients, added_ingredients)
+            if(recipe["progress"] == recipe["until_complete"] && recipe["mix_ingredients"].length == added_ingredients.length){
+                $("#arrow-gif").addClass("hide-media")
+                $("#shaker-gif").removeClass("hide-media")
+                setTimeout(() => { window.location.href = "http://127.0.0.1:5000/" + recipe["id"] + "/quiz_garnish" }, 3500);   
+            }
         },
         error: function(request, status, error){
             console.log("Error");

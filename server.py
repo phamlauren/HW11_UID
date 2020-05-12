@@ -48,7 +48,7 @@ recipes = [
         "garnish_ingredients": [
             {
                 "id": 1,
-                "ingredient": "Orange wheel",
+                "ingredient": "Orange",
                 "amount": 1, # 1 x (1/2 wheel)
                 "unit": " half wheel",
                 "amount_added": 0,
@@ -556,9 +556,9 @@ recipes = [
         "garnish_ingredients": [
             {
                 "id": 1,
-                "ingredient": "Orange twist",
+                "ingredient": "Orange",
                 "amount": 1,
-                "unit": " wheel",
+                "unit": " twist",
                 "amount_added": 0,
                 "media": "",
             },
@@ -981,9 +981,9 @@ recipes = [
     },
     {
         "id": 16,
-        "name": "Floridian",
-        "media": "http://www.completecocktails.com/img/d/l/TheFloridian.png", 
-        "glass": "lowball",
+        "name": "Kamikaze",
+        "media": "https://www.cocktail-db.com/stat/img/640/Kamikaze.jpg", 
+        "glass": "martini",
         "mix_ingredients": [
             {
                 "id": 1,
@@ -995,41 +995,25 @@ recipes = [
             },
             {
                 "id": 2,
-                "ingredient": "Lemon juice",
-                "amount": 3, 
-                "unit": "/4 oz",
-                "amount_added": 0,
-                "media": "",
-            },
-            {
-                "id": 3,
-                "ingredient": "Caster sugar",
+                "ingredient": "Vodka",
                 "amount": 1, 
-                "unit": "/4 oz",
-                "amount_added": 0,
-                "media": "",
-            },
-            {
-                "id": 4,
-                "ingredient": "Orange vodka",
-                "amount": 2, 
                 "unit": " oz",
                 "amount_added": 0,
                 "media": "",
             },
             {
-                "id": 5,
-                "ingredient": "Cointreau or triple sec",
-                "amount": 3, 
-                "unit": "/4 oz",
+                "id": 3,
+                "ingredient": "Triple Sec",
+                "amount": 1, 
+                "unit": "/2 oz",
                 "amount_added": 0,
                 "media": "",
             },
             {
-                "id": 6,
-                "ingredient": "Cranberry juice",
-                "amount": 2, 
-                "unit": " splashes",
+                "id": 4,
+                "ingredient": "Lime juice",
+                "amount": 1, 
+                "unit": "/2 oz",
                 "amount_added": 0,
                 "media": "",
             },
@@ -1037,9 +1021,9 @@ recipes = [
         "garnish_ingredients": [
             {
                 "id": 1,
-                "ingredient": "Orange peel",
-                "amount": 2,
-                "unit": " twist",
+                "ingredient": "Lime",
+                "amount": 1,
+                "unit": " wedge",
                 "amount_added": 0,
                 "media": "",
             },
@@ -1217,9 +1201,9 @@ recipes = [
         "garnish_ingredients": [
             {
                 "id": 1,
-                "ingredient": "Orange peel",
+                "ingredient": "Orange",
                 "amount": 1,
-                "unit": "",
+                "unit": " peel",
                 "amount_added": 0,
             },
         ],
@@ -1376,23 +1360,28 @@ added_to_shaker = []
 removed_from_glass = []
 added_to_glass = []
 
-@app.route('/search_recipes', methods=['GET', 'POST'])
-def search_recipes():
-    json_data = request.get_json()
-    search_string = json_data["search_string"]
-
-    status = False
-    recipe_id = None
+@app.route('/recipe_list/<search_string>')
+def search_recipes(search_string=None):
+    matching_recipes = []
     for recipe in recipes:
         if search_string.lower() in recipe["name"].lower():
-            status = True
-            recipe_id = recipe["id"]
+            matching_recipes.append(recipe)
+        else:
+            for ingredient in recipe["mix_ingredients"]:
+                if search_string.lower() in ingredient["ingredient"].lower():
+                    matching_recipes.append(recipe)
+            if recipe not in matching_recipes:
+                for ingredient in recipe["garnish_ingredients"]:
+                    if search_string.lower() in ingredient["ingredient"].lower():
+                        matching_recipes.append(recipe)
 
-    return jsonify(status=status, recipe_id=recipe_id)
+    return render_template('recipe_list.html', recipes=matching_recipes, search_string=search_string)
 
 @app.route('/recipe_list')
 def display_recipes():
-    return render_template('recipe_list.html', recipes=recipes)
+
+    search_string = None
+    return render_template('recipe_list.html', recipes=recipes, search_string=search_string)
 
 @app.route('/<int:recipe_id>')
 def recipe(recipe_id=None):
@@ -1558,7 +1547,7 @@ def add_to_shaker(recipe_id=None):
     ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
     if ingredient_to_move["quiz_correct"]:
         selected_recipe["progress"] = str(int(selected_recipe["progress"]) + 1)
-        if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
+        if ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None:
             removed_from_shaker.remove(ingredient_to_move)
         if(ingredient_to_move["amount_added"] == 1):
             added_to_shaker.insert(0, ingredient_to_move)
@@ -1580,12 +1569,12 @@ def remove_from_shaker(recipe_id=None):
         if ingredient["quiz_id"] == int(ingredient_id):
             ingredient_to_move = ingredient
     
-    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
+    ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] - 1
     if ingredient_to_move["quiz_correct"]:
         selected_recipe["progress"] = str(int(selected_recipe["progress"]) - 1)
-        if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
+        if ingredient_to_move["amount_added"] == 0:
             added_to_shaker.remove(ingredient_to_move)
-        if(ingredient_to_move["amount_added"] == 1):
+        if (ingredient_to_move["amount_added"]+1) == ingredient_to_move["amount"]:
             removed_from_shaker.insert(0, ingredient_to_move)
     
     else:
@@ -1657,9 +1646,9 @@ def add_to_glass(recipe_id=None):
     ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] + 1
     if ingredient_to_move["quiz_correct"]:
         selected_recipe["progress"] = str(int(selected_recipe["progress"]) + 1)
-        if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
+        if ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None:
             removed_from_glass.remove(ingredient_to_move)
-        if(ingredient_to_move["amount_added"] == 1):
+        if ingredient_to_move["amount_added"] == 1:
             added_to_glass.insert(0, ingredient_to_move)
 
     else:
@@ -1682,9 +1671,9 @@ def remove_from_glass(recipe_id=None):
     ingredient_to_move["amount_added"] = ingredient_to_move["amount_added"] - 1
     if ingredient_to_move["quiz_correct"]:
         selected_recipe["progress"] = str(int(selected_recipe["progress"]) - 1)
-        if(ingredient_to_move["amount_added"] == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None):
+        if ingredient_to_move["amount_added"] == 0:
             added_to_glass.remove(ingredient_to_move)
-        if(ingredient_to_move["amount_added"] == 1):
+        if (ingredient_to_move["amount_added"]+1) == ingredient_to_move["amount"] or ingredient_to_move["amount"] is None:
             removed_from_glass.insert(0, ingredient_to_move)
 
     else:

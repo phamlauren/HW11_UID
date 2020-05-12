@@ -65,6 +65,56 @@
 			display: none;
 		}
 
+		#cursor-gif {
+			position: absolute;
+			width: 25%;
+			margin-top: 15px;
+			margin-left: 150px;
+			z-index: 2;
+		}
+
+		#arrow-gif {
+			position: absolute;
+			width: 40%;
+			margin-top: -180px;
+			margin-left: 150px;
+			transform: rotate(55deg);
+			z-index: 2;
+		}
+
+		#reverse-arrow-gif {
+			position: absolute;
+			width: 40%;
+			margin-top: 20px;
+			margin-left: 150px;
+			transform: rotate(235deg);
+			z-index: 2;
+		}
+
+		.short {
+			font-size: 12px;
+			position: absolute;
+			width: 100px;
+			margin-top: -25px;
+			margin-left: 500px;
+			z-index: 2;
+			border: 1px solid gray;
+			box-shadow: 5px 5px 2px #aaaaaa;
+			background-color: white;
+		}
+
+		.long {
+			font-size: 12px;
+			position: absolute;
+			width: 200px;
+			margin-top: -25px;
+			margin-left: 425px;
+			z-index: 2;
+			border: 1px solid gray;
+			box-shadow: 5px 5px 2px #aaaaaa;
+			background-color: white;
+		}
+
 		#yes-button, #no-button {
 			background-color: #6e9441;
 			border: none;
@@ -96,11 +146,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 title">Garnishing a {{ recipe.name }}</div>
-			<div class="col-md-12" id="progress_bar">Progress: {{ recipe.progress }}/{{ recipe.until_complete }}</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
 				<div id="non-target">Ingredients</div>
+				<img src="https://media2.giphy.com/media/d88ZIuHQiAPZAuNgkT/giphy.gif?cid=ecf05e47f2359f906ff76edcb865e24753974ac7bf1e51cf&rid=giphy.gif" alt="Arrow gif" id="arrow-gif" />
+				<div id="instructions-div" class="long hide-media">Oops! The ingredients in the shaker are not quite right. Please drag the incorrect items out - consult the "Recipe peek" tool above if you need a reminder!</div>
+				<img src="https://media2.giphy.com/media/d88ZIuHQiAPZAuNgkT/giphy.gif?cid=ecf05e47f2359f906ff76edcb865e24753974ac7bf1e51cf&rid=giphy.gif" alt="Reverse arrow gif" id="reverse-arrow-gif" class="hide-media" />
 				<div id="available-ingredients"></div>
 			</div>
 			<div class="col-md-6">
