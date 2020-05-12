@@ -38,7 +38,7 @@ var display_lists = function(recipe, available_ingredients, added_ingredients){
         $(added_ingredient).attr("data-id", ingredient.quiz_id)
         $(added_ingredient).attr("data-name", ingredient.ingredient)
         if(ingredient.quiz_correct == false){
-            $("#instructions-div").text("Oops! The ingredients in the shaker are not quite right. Please drag the incorrect items out - consult the \"Recipe peek\" tool above if you need a reminder!")
+            $("#instructions-div").text("Oops! The ingredients in the shaker are not quite right. Please drag the incorrect items out - consult the recipe dropdown in the menu if you need a reminder!")
             $("#instructions-div").removeClass("hide-media")
             $("#instructions-div").removeClass("short")
             $("#instructions-div").addClass("long")
@@ -159,10 +159,11 @@ var move_to_available_ingredients = function(ingredient_id, recipe_id){
 
 $(document).ready(function(){
     display_lists(recipe, available_ingredients, added_ingredients)
+    $("#select_dropdown").text(recipe.name + " recipe")
     $("#recipe_dropdown").empty()
     var recipe_name = $("<div>")
     recipe_name.addClass("recipe-name")
-    recipe_name.text(recipe.name)
+    recipe_name.text("Mixing ingredients")
     $("#recipe_dropdown").append(recipe_name)
     $.each(recipe["mix_ingredients"], function(i, item){
         var list_item = $("<div>")

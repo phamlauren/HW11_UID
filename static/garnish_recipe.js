@@ -180,10 +180,11 @@ $(document).on("click", "#no-button", function(){
 
 $(document).ready(function(){
     display_lists(recipe, available_ingredients, added_ingredients)
+    $("#select_dropdown").text(recipe.name + " recipe")
     $("#recipe_dropdown").empty()
     var recipe_name = $("<div>")
     recipe_name.addClass("recipe-name")
-    recipe_name.text(recipe.name)
+    recipe_name.text("Mixing ingredients")
     $("#recipe_dropdown").append(recipe_name)
     $.each(recipe["mix_ingredients"], function(i, item){
         var list_item = $("<div>")
